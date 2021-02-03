@@ -33,7 +33,7 @@ public class FlowLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        // 获得它的父容器对它的期望测量模式和大小
+        // 获得它的父容器对它的期望测量模式和大小,但孩子不必一定按照该期望值来Measure
         int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
         int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
         int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
