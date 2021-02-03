@@ -5,6 +5,8 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    sourceSets {
+        main.java.srcDirs += 'src/main/Kotlin'}
 
     defaultConfig {
         applicationId "com.example.playandroid"
