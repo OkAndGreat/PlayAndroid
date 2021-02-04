@@ -1,4 +1,4 @@
-package com.example.playandroid.views;
+package com.example.playandroid.ui.custom;
 
 import android.content.Context;
 import android.graphics.Canvas;

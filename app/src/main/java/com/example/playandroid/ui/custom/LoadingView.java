@@ -1,4 +1,4 @@
-package com.example.playandroid.views;
+package com.example.playandroid.ui.custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

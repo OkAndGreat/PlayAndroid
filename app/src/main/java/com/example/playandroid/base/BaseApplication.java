@@ -12,7 +12,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sHandler = new Handler();
-        sContext = getBaseContext();
+        sContext = getApplicationContext();
     }
 
     public static Handler getHandler(){

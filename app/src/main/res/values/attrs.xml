@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AboutAuthorView">
+        <attr name="authorName" format="string"/>
+        <attr name="qqNumber" format="string"/>
+        <attr name="android:src" format="string"/>
+        <attr name="Github" format="string"/>
+        <attr name="saying" format="string"/>
+    </declare-styleable>
+</resources>
