@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
                 ImageView image = view.findViewById(R.id.tab_item_image);
                 tv.setText(datas[i]);
                 image.setImageDrawable(getResources().getDrawable(imageSrc_normal[i]));
-                if(i==0){
+                if (i == 0) {
                     tv.setTextColor(getResources().getColor(R.color.tabtext_bg_color_selected));
                     image.setImageResource(imageSrc_selected[i]);
                 }

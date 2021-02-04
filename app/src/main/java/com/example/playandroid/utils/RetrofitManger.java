@@ -16,4 +16,6 @@ public class RetrofitManger {
         }
         return Instance;
     }
+
+
 }
