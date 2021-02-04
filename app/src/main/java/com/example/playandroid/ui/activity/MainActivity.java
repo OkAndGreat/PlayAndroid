@@ -24,9 +24,9 @@ import com.example.playandroid.adapter.*;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
-    String[] datas = {"首页", "问答", "体系"};
-    int[] imageSrc_normal = {R.drawable.home_normal, R.drawable.question_normal, R.drawable.system_normal};
-    int[] imageSrc_selected = {R.drawable.home_selected, R.drawable.question_selected, R.drawable.system_selected};
+    String[] datas = {"首页", "问答", "体系", "休息"};
+    int[] imageSrc_normal = {R.drawable.home_normal, R.drawable.question_normal, R.drawable.system_normal, R.drawable.rest_normal};
+    int[] imageSrc_selected = {R.drawable.home_selected, R.drawable.question_selected, R.drawable.system_selected, R.drawable.rest_selected};
     private TabLayout mMainContentTabLayout;
 
     @Override
@@ -57,46 +57,35 @@ public class MainActivity extends BaseActivity {
                 View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_main_content_tab, null);
                 TextView tv = view.findViewById(R.id.tab_item_text);
                 ImageView image = view.findViewById(R.id.tab_item_image);
-                tab.setTag(i);
-                //对tab进行微调
-//                if(i==0){
-//                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                    lp.setMargins(80, 0, 0, 0);
-//                }
-//                if(i==1){
-//                    ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
-//                    layoutParams.height= SizeUtils.dip2px(getApplicationContext(),25);
-//                    layoutParams.width= SizeUtils.dip2px(getApplicationContext(),25);
-//
-//                    image.setLayoutParams(layoutParams);
-//                }
-//                if(i==2){
-//                    ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
-//                    layoutParams.height= SizeUtils.dip2px(getApplicationContext(),25);
-//                    layoutParams.width= SizeUtils.dip2px(getApplicationContext(),25);
-//                    image.setLayoutParams(layoutParams);
-//                }
-                image.setImageDrawable(getResources().getDrawable(imageSrc_normal[i]));
                 tv.setText(datas[i]);
+                image.setImageDrawable(getResources().getDrawable(imageSrc_normal[i]));
+                if(i==0){
+                    tv.setTextColor(getResources().getColor(R.color.tabtext_bg_color_selected));
+                    image.setImageResource(imageSrc_selected[i]);
+                }
                 tab.setCustomView(view);
             }
         }
 
     }
 
+
     private void initListener() {
         mMainContentTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 ImageView icon = tab.getCustomView().findViewById(R.id.tab_item_image);
+                TextView tabText = tab.getCustomView().findViewById(R.id.tab_item_text);
+                tabText.setTextColor(getResources().getColor(R.color.tabtext_bg_color_selected));
                 icon.setImageResource(imageSrc_selected[tab.getPosition()]);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 ImageView icon = tab.getCustomView().findViewById(R.id.tab_item_image);
+                TextView tabText = tab.getCustomView().findViewById(R.id.tab_item_text);
                 icon.setImageResource(imageSrc_normal[tab.getPosition()]);
-
+                tabText.setTextColor(getResources().getColor(R.color.tabtext_bg_color_normal));
             }
 
             @Override

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity"
-    android:orientation="vertical"
->
+    tools:context=".ui.activity.MainActivity">
     <LinearLayout
+        android:id="@+id/ll_main_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#3780FD"
@@ -40,15 +39,18 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/Main_Content_Pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="45dp"
         android:overScrollMode="never"
         android:layout_weight="1">
     </androidx.viewpager.widget.ViewPager>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/Main_Content_TabLayout"
         android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
         app:tabIndicatorHeight="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         app:tabBackground="@color/tab_bg_color"
         ></com.google.android.material.tabs.TabLayout>
-</LinearLayout>
+</RelativeLayout>

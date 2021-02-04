@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.playandroid.utils.*;
 
 public class MainContentPagerAdapter extends FragmentPagerAdapter {
-    String[] datas = {"首页", "问答", "体系"};
+    String[] datas = {"首页", "问答", "体系","休息"};
 
     public MainContentPagerAdapter(FragmentManager fragmentManager, int behavior) {
         super(fragmentManager, behavior);

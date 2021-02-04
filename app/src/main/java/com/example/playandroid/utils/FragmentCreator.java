@@ -3,6 +3,7 @@ package com.example.playandroid.utils;
 import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.ui.fragment.HomeFragment;
 import com.example.playandroid.ui.fragment.QuestionFragment;
+import com.example.playandroid.ui.fragment.RestFragment;
 import com.example.playandroid.ui.fragment.SystemFragment;
 
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public class FragmentCreator {
             case 2:
                 baseFragment = new SystemFragment();
                 break;
+            case 3:
+                baseFragment = new RestFragment();
         }
 
         sCache.put(position, baseFragment);
