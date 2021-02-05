@@ -13,4 +13,5 @@ public interface API {
 
     @GET("/article/top/json")
     Call<TopHomeArticleBean> getTopHomeArticle();
+
 }
