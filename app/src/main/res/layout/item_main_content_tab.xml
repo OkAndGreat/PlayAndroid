@@ -3,13 +3,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/tab_bg_color"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/tab_item_image"
+            android:layout_width="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_height="25dp" />
+        <TextView
+            android:id="@+id/tab_item_text"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent" />
+    </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/tab_item_image"
-        android:layout_width="25dp"
-        android:layout_height="25dp" />
-    <TextView
-        android:id="@+id/tab_item_text"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+
+
+
+
 </LinearLayout>

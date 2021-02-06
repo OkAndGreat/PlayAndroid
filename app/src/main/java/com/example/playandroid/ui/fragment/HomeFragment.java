@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
-import com.example.playandroid.base.BaseApplication;
+import com.example.playandroid.adapter.HomeTopArticleAdapter;
 import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
@@ -17,13 +19,16 @@ import com.example.playandroid.presenter.impl.HomePresenterImpl;
 import com.example.playandroid.ui.CustomView.UILoader;
 import com.example.playandroid.view.IHomeCallback;
 
-import java.util.List;
-import java.util.zip.Inflater;
+import java.util.ArrayList;
 
 public class HomeFragment extends BaseFragment implements IHomeCallback {
-
+    private static final String TAG = "HomeFragment";
     private UILoader mUiLoader;
     private HomePresenterImpl mHomePresenter;
+    private View mRoorView;
+    ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
+    ArrayList<TopHomeArticleBean.DataDTO> mTopArticle;
+    private HomeTopArticleAdapter mHomeTopArticleAdapter;
 
     @Nullable
     @Override
@@ -41,6 +46,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         //获取推荐列表
         mHomePresenter.getHomeArticleData();
 
+
         if (mUiLoader.getParent() instanceof ViewGroup) {
             ((ViewGroup) mUiLoader.getParent()).removeView(mUiLoader);
         }
@@ -48,12 +54,25 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         return mUiLoader;
     }
 
-private View createSuccessView(LayoutInflater layoutInflater, ViewGroup container){
-        return null;
-}
+    private View createSuccessView(LayoutInflater layoutInflater, ViewGroup container) {
+        mRoorView = layoutInflater.inflate(R.layout.fragment_home, container, false);
+        //RecyclerView使用
+        RecyclerView rv_home = mRoorView.findViewById(R.id.rv_home);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rv_home.setLayoutManager(linearLayoutManager);
+        //设置适配器
+        mHomeTopArticleAdapter = new HomeTopArticleAdapter();
+        rv_home.setAdapter(mHomeTopArticleAdapter);
+        return mRoorView;
+    }
+
     @Override
-    public void onHomeArticleLoaded(List<HomeArticleBean> NormalArticle, List<TopHomeArticleBean> TopArticle) {
+    public void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> NormalArticle, ArrayList<TopHomeArticleBean.DataDTO> TopArticle) {
         mUiLoader.updateStatus(UILoader.UIStatus.SUCCESS);
+        mTopArticle=TopArticle;
+        mHomeTopArticleAdapter.setData(mTopArticle);
+        mNormalArticle=NormalArticle;
     }
 
     @Override
@@ -69,5 +88,12 @@ private View createSuccessView(LayoutInflater layoutInflater, ViewGroup containe
     @Override
     public void onLoading() {
         mUiLoader.updateStatus(UILoader.UIStatus.LOADING);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //取消接口的注册
+        mHomePresenter.unRegisterViewCallback(this);
     }
 }

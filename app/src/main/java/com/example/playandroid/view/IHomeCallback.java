@@ -3,6 +3,7 @@ package com.example.playandroid.view;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Callback类用来Presenter类和UI类进行通信
@@ -10,10 +11,10 @@ public interface IHomeCallback {
 
     /**
      * 获取推荐内容的结果
-     *
-     * @param result
+     * @param NormalArticle
+     * @param TopArticle
      */
-    void onHomeArticleLoaded(List<HomeArticleBean> NormalArticle,List<TopHomeArticleBean> TopArticle);
+    void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> NormalArticle, ArrayList<TopHomeArticleBean.DataDTO> TopArticle);
     /**
      * 网络错误
      */

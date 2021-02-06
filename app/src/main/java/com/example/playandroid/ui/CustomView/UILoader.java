@@ -1,6 +1,7 @@
 package com.example.playandroid.ui.CustomView;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,12 +45,7 @@ public abstract class UILoader extends FrameLayout {
     public void updateStatus(UIStatus status) {
         mCurrentStatus = status;
         //更新UI一定要在主线程上。
-        BaseApplication.getHandler().post(new Runnable() {
-            @Override
-            public void run() {
-                switchUIByCurrentStatus();
-            }
-        });
+        switchUIByCurrentStatus();
     }
 
     /**
