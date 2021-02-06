@@ -1,5 +1,6 @@
 package com.example.playandroid.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,24 +12,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
-import com.example.playandroid.adapter.HomeTopArticleAdapter;
+import com.example.playandroid.adapter.HomeArticleAdapter;
 import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 import com.example.playandroid.presenter.impl.HomePresenterImpl;
 import com.example.playandroid.ui.CustomView.UILoader;
+import com.example.playandroid.ui.activity.WebActivity;
 import com.example.playandroid.view.IHomeCallback;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends BaseFragment implements IHomeCallback {
+public class HomeFragment extends BaseFragment implements IHomeCallback, UILoader.OnRetryClickListener {
     private static final String TAG = "HomeFragment";
     private UILoader mUiLoader;
     private HomePresenterImpl mHomePresenter;
     private View mRoorView;
     ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
     ArrayList<TopHomeArticleBean.DataDTO> mTopArticle;
-    private HomeTopArticleAdapter mHomeTopArticleAdapter;
+    private HomeArticleAdapter mHomeArticleAdapter;
 
     @Nullable
     @Override
@@ -51,6 +53,8 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
             ((ViewGroup) mUiLoader.getParent()).removeView(mUiLoader);
         }
 
+        mUiLoader.setOnRetryClickListener(this);
+
         return mUiLoader;
     }
 
@@ -62,22 +66,35 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_home.setLayoutManager(linearLayoutManager);
         //设置适配器
-        mHomeTopArticleAdapter = new HomeTopArticleAdapter();
-        rv_home.setAdapter(mHomeTopArticleAdapter);
+        mHomeArticleAdapter = new HomeArticleAdapter();
+        rv_home.setAdapter(mHomeArticleAdapter);
+        initItemClickEvent();
         return mRoorView;
+    }
+
+    private void initItemClickEvent() {
+        mHomeArticleAdapter.setOnURLClickListener(new HomeArticleAdapter.OnURLClickListener() {
+            @Override
+            public void OnClick(String URL) {
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.putExtra("url", URL);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> NormalArticle, ArrayList<TopHomeArticleBean.DataDTO> TopArticle) {
         mUiLoader.updateStatus(UILoader.UIStatus.SUCCESS);
-        mTopArticle=TopArticle;
-        mHomeTopArticleAdapter.setData(mTopArticle);
-        mNormalArticle=NormalArticle;
+        mTopArticle = TopArticle;
+        mNormalArticle = NormalArticle;
+        mHomeArticleAdapter.setData(mTopArticle, mNormalArticle);
     }
 
     @Override
     public void onNetworkError() {
         mUiLoader.updateStatus(UILoader.UIStatus.NETWORK_ERROR);
+
     }
 
     @Override
@@ -95,5 +112,12 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         super.onDestroyView();
         //取消接口的注册
         mHomePresenter.unRegisterViewCallback(this);
+    }
+
+    @Override
+    public void onRetryClick() {
+        //表示网络不佳的时候，用户点击了重试
+        //重新获取数据即可
+        mHomePresenter.getHomeArticleData();
     }
 }

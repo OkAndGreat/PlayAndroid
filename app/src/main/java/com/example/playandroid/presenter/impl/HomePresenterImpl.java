@@ -23,6 +23,7 @@ public class HomePresenterImpl implements IHomePresenter {
     private IHomeCallback mIHomeCallback = null;
     private ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
     private static final String TAG = "HomePresenterImpl";
+    private ArrayList<TopHomeArticleBean.DataDTO> mTopArticle;
 
     @Override
     public void registerViewCallback(IHomeCallback iHomeCallback) {
@@ -48,9 +49,7 @@ public class HomePresenterImpl implements IHomePresenter {
                         //数据为空
                         mIHomeCallback.onEmpty();
                     } else {
-                        ArrayList<TopHomeArticleBean.DataDTO> data = (ArrayList<TopHomeArticleBean.DataDTO>)response.body().getData();
-                        LogUtil.d(TAG,"data.toString()-->"+data.toString());
-                        mIHomeCallback.onHomeArticleLoaded(mNormalArticle,data);
+                        mTopArticle = (ArrayList<TopHomeArticleBean.DataDTO>)response.body().getData();
                     }
                 } else {
                     //网络错误,让UILoader去显示网络错误的UI界面
@@ -75,6 +74,7 @@ public class HomePresenterImpl implements IHomePresenter {
                     } else {
                         HomeArticleBean.DataDTO data = response.body().getData();
                         mNormalArticle = (ArrayList<HomeArticleBean.DataDTO.DatasDTO>)data.getDatas();
+                        mIHomeCallback.onHomeArticleLoaded(mNormalArticle,mTopArticle);
                     }
                 } else {
                     mIHomeCallback.onNetworkError();
