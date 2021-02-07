@@ -50,12 +50,7 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
             holder.mTv_top.setVisibility(View.GONE);
             HomeArticleBean.DataDTO.DatasDTO item = mNormalArticle.get(position);
             //处理item点击事件
-            holder.mll_item_article.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    monURLClickListener.OnClick(item.getLink());
-                }
-            });
+            holder.mll_item_article.setOnClickListener(v -> monURLClickListener.OnClick(item.getLink()));
 
             Boolean fresh = item.getFresh();
             if (!fresh)
@@ -94,12 +89,7 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
         } else {
             TopHomeArticleBean.DataDTO item = mTopArticle.get(position);
             //处理item点击事件
-            holder.mll_item_article.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    monURLClickListener.OnClick(item.getLink());
-                }
-            });
+            holder.mll_item_article.setOnClickListener(v -> monURLClickListener.OnClick(item.getLink()));
             Boolean fresh = item.getFresh();
             if (!fresh)
                 holder.mTv_new.setVisibility(View.GONE);

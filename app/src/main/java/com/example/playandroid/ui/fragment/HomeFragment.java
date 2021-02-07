@@ -27,7 +27,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UILoade
     private static final String TAG = "HomeFragment";
     private UILoader mUiLoader;
     private HomePresenterImpl mHomePresenter;
-    private View mRoorView;
+    private View mRootView;
     ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
     ArrayList<TopHomeArticleBean.DataDTO> mTopArticle;
     private HomeArticleAdapter mHomeArticleAdapter;
@@ -59,9 +59,9 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UILoade
     }
 
     private View createSuccessView(LayoutInflater layoutInflater, ViewGroup container) {
-        mRoorView = layoutInflater.inflate(R.layout.fragment_home, container, false);
+        mRootView = layoutInflater.inflate(R.layout.fragment_home, container, false);
         //RecyclerView使用
-        RecyclerView rv_home = mRoorView.findViewById(R.id.rv_home);
+        RecyclerView rv_home = mRootView.findViewById(R.id.rv_home);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_home.setLayoutManager(linearLayoutManager);
@@ -69,17 +69,14 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UILoade
         mHomeArticleAdapter = new HomeArticleAdapter();
         rv_home.setAdapter(mHomeArticleAdapter);
         initItemClickEvent();
-        return mRoorView;
+        return mRootView;
     }
 
     private void initItemClickEvent() {
-        mHomeArticleAdapter.setOnURLClickListener(new HomeArticleAdapter.OnURLClickListener() {
-            @Override
-            public void OnClick(String URL) {
-                Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url", URL);
-                startActivity(intent);
-            }
+        mHomeArticleAdapter.setOnURLClickListener(URL -> {
+            Intent intent = new Intent(getContext(), WebActivity.class);
+            intent.putExtra("url", URL);
+            startActivity(intent);
         });
     }
 

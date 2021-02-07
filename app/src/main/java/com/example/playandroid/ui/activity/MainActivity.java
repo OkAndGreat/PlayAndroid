@@ -37,6 +37,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private NavigationView mNavView;
     private DrawerLayout mDrawerLayout;
     private ImageView mIv_home;
+    private TextView mTv_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mNavView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mIv_home = (ImageView) findViewById(R.id.iv_home);
+        mTv_bar = (TextView) findViewById(R.id.tv_Bar);
     }
 
 
@@ -90,6 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 TextView tabText = tab.getCustomView().findViewById(R.id.tab_item_text);
                 tabText.setTextColor(getResources().getColor(R.color.tabtext_bg_color_selected));
                 icon.setImageResource(imageSrc_selected[tab.getPosition()]);
+                mTv_bar.setText(tabText.getText());
             }
 
             @Override

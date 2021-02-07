@@ -1,5 +1,6 @@
 package com.example.playandroid.model;
 
+import com.example.playandroid.model.bean.ArticleBean;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 
@@ -14,4 +15,6 @@ public interface API {
     @GET("/article/top/json")
     Call<TopHomeArticleBean> getTopHomeArticle();
 
+    @GET("/wenda/list/{page}/json")
+    Call<ArticleBean> getQuestionArticle(@Path("page")int page);
 }
