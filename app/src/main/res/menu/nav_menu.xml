@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_point"
+            android:icon="@drawable/nav_point"
+            android:title="我的积分" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/nav_history"
+            android:title="阅读历史" />
+        <item
+            android:id="@+id/nav_github"
+            android:icon="@drawable/nav_github"
+            android:title="开源项目" />
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/nav_info"
+            android:title="关于作者" />
+        <item
+            android:id="@+id/nav_collection"
+            android:icon="@drawable/nav_collection"
+            android:title="我的收藏" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/nav_setting"
+            android:title="系统设置" />
+    </group>
+</menu>

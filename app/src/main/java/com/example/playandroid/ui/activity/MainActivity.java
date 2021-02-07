@@ -1,12 +1,16 @@
 package com.example.playandroid.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,16 +22,21 @@ import com.example.playandroid.R;
 import com.example.playandroid.base.BaseActivity;
 import com.example.playandroid.base.BaseApplication;
 import com.example.playandroid.utils.SizeUtils;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 import com.google.android.material.tabs.TabLayout;
 import com.example.playandroid.adapter.*;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     String[] datas = {"首页", "问答", "体系", "休息"};
     int[] imageSrc_normal = {R.drawable.home_normal, R.drawable.question_normal, R.drawable.system_normal, R.drawable.rest_normal};
     int[] imageSrc_selected = {R.drawable.home_selected, R.drawable.question_selected, R.drawable.system_selected, R.drawable.rest_selected};
     private TabLayout mMainContentTabLayout;
+    private NavigationView mNavView;
+    private DrawerLayout mDrawerLayout;
+    private ImageView mIv_home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +76,9 @@ public class MainActivity extends BaseActivity {
                 tab.setCustomView(view);
             }
         }
-
+        mNavView = (NavigationView) findViewById(R.id.nav_view);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mIv_home = (ImageView) findViewById(R.id.iv_home);
     }
 
 
@@ -94,8 +105,17 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+        mNavView.setNavigationItemSelectedListener(item -> {
+            mDrawerLayout.closeDrawers();
+            return true;
+        });
+        mIv_home.setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View v) {
+        mDrawerLayout.openDrawer(GravityCompat.START);
+    }
 }
 
