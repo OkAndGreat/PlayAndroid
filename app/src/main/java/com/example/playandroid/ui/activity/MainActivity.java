@@ -6,6 +6,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,12 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.playandroid.R;
 import com.example.playandroid.base.BaseActivity;
 import com.example.playandroid.base.BaseApplication;
+import com.example.playandroid.ui.CustomView.AboutAuthorLayout;
 import com.example.playandroid.utils.SizeUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
@@ -38,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout mDrawerLayout;
     private ImageView mIv_home;
     private TextView mTv_bar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //ViewPager+Fragment+TabLayoou组合
         mMainContentTabLayout = (TabLayout) findViewById(R.id.Main_Content_TabLayout);
         ViewPager MainContentPager = (ViewPager) findViewById(R.id.Main_Content_Pager);
+        //暂时解决了奔溃问题,但这样做可能让程序效率变慢
+        //TODO:如何有效解决崩溃问题?
+        MainContentPager.setOffscreenPageLimit(4);
         MainContentPagerAdapter mainContentPagerAdapter = new MainContentPagerAdapter(getSupportFragmentManager(), MainContentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         MainContentPager.setAdapter(mainContentPagerAdapter);
         mMainContentTabLayout.setupWithViewPager(MainContentPager);
@@ -108,9 +115,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         });
-        mNavView.setNavigationItemSelectedListener(item -> {
-            mDrawerLayout.closeDrawers();
-            return true;
+        mNavView.setNavigationItemSelectedListener(new OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_collection:
+                        break;
+                    case R.id.nav_github:
+                        break;
+                    case R.id.nav_history:
+                        break;
+                    case R.id.nav_info:
+                        Intent intent = new Intent(MainActivity.this, AboutAuthorActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_point:
+                        break;
+                    case R.id.nav_setting:
+                        break;
+                }
+                return true;
+            }
         });
         mIv_home.setOnClickListener(this);
     }

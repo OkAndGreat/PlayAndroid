@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 public class RoundRectImageView extends AppCompatImageView {
 
-    private float roundRatio = 0.1f;
+    private float roundRatio = 0.5f;
     private Path path;
 
     public RoundRectImageView(Context context, AttributeSet attrs) {

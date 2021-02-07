@@ -13,6 +13,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.PlayAndroid">
         <activity android:name=".ui.activity.WebActivity"></activity>
+        <activity android:name=".ui.activity.AboutAuthorActivity"></activity>
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

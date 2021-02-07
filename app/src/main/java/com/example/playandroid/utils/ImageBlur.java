@@ -14,7 +14,7 @@ public class ImageBlur {
     public static void makeBlur(ImageView imageview, Context context) {
         BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
-        Bitmap blurred = blurRenderScript(bitmap, 10, context); //second parametre is radius max:25
+        Bitmap blurred = blurRenderScript(bitmap, 25, context); //second parametre is radius max:25
         imageview.setImageBitmap(blurred); //radius decide blur amount
     }
 

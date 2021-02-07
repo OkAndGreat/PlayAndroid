@@ -44,7 +44,7 @@ public class QuestionPresenterImpl implements IQuestionPresenter {
                     } else {
                         ArticleBean.DataDTO data = response.body().getData();
                         List<ArticleBean.DataDTO.DatasDTO> datas = data.getDatas();
-                        mIquestionCallback.onHomeArticleLoaded(datas);
+                            mIquestionCallback.onHomeArticleLoaded(datas);
                     }
                 } else {
                     //网络错误,让UILoader去显示网络错误的UI界面
