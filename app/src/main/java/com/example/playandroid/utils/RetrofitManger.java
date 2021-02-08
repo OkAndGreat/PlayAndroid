@@ -34,22 +34,23 @@ public class RetrofitManger {
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .build();
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(PlayAndroid_URL)//设置BaseUrl
-                .client(okHttpClient)//设置请求的client
-                .addConverterFactory(GsonConverterFactory.create())//设置转换器
+                .baseUrl(PlayAndroid_URL)
+                //设置请求的client
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return mRetrofit;
     }
 
     public Retrofit createRestRetrofit() {
-        //设置一下okHttp的参数
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .build();
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(Rest_URL)//设置BaseUrl
-                .client(okHttpClient)//设置请求的client
-                .addConverterFactory(GsonConverterFactory.create())//设置转换器
+                .baseUrl(Rest_URL)
+                //设置请求的client
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return mRetrofit;
     }

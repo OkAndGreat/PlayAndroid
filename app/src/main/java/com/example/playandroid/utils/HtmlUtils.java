@@ -9,6 +9,7 @@ public class HtmlUtils {
         str = str.replace("</ul>", "");
         str = str.replace("</li>", "");
         str = str.replace("<br/>", "");
+        str = str.replace("<ol>", "");
         str = str.replace("<p>", "");
         str = str.replace("</p>", "");
         str = str.replace("&amp;", "&");

@@ -1,6 +1,7 @@
 package com.example.playandroid.ui.activity;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -35,6 +36,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout mDrawerLayout;
     private ImageView mIvHome;
     private TextView mTvBar;
+    private TextView mThatDay;
+    private CardView mLookGirl;
+    private CardView mLookJokes;
 
 
     @Override
@@ -83,6 +87,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mIvHome = (ImageView) findViewById(R.id.iv_home);
         mTvBar = (TextView) findViewById(R.id.tv_Bar);
+        mThatDay = (TextView) findViewById(R.id.tv_look_history);
+        mLookGirl = findViewById(R.id.cv_look_girl);
+        mLookJokes = findViewById(R.id.cv_look_jokes);
     }
 
 
@@ -114,7 +121,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mNavView.setNavigationItemSelectedListener(new OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.nav_collection:
                         break;
                     case R.id.nav_github:
@@ -136,12 +143,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
         mIvHome.setOnClickListener(this);
+        mThatDay.setOnClickListener(this);
+//        mLookGirl.setOnClickListener(this);
+//        mLookJokes.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        mDrawerLayout.openDrawer(GravityCompat.START);
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.iv_home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+            case R.id.tv_look_history:
+                intent = new Intent(this, ThatDayActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.cv_look_girl:
+                intent = new Intent(this, GirlActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.cv_look_jokes:
+                intent = new Intent(this, JokesActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
+        }
+
     }
 }
 

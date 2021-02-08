@@ -2,11 +2,13 @@ package com.example.playandroid.model;
 
 import com.example.playandroid.model.bean.ArticleBean;
 import com.example.playandroid.model.bean.HomeArticleBean;
+import com.example.playandroid.model.bean.ThatDayBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author OkAndGreat
@@ -34,4 +36,14 @@ public interface API {
      */
     @GET("/wenda/list/{page}/json")
     Call<ArticleBean> getQuestionArticle(@Path("page")int page);
+
+    /**
+     * 获取那年今日数据
+     * @param type 返回数据的类型
+     * @param app_id 验证请求用户
+     * @param app_secret 验证请求用户
+     * @return
+     */
+    @GET("/api/history/today")
+    Call<ThatDayBean> getThatDayData(@Query("id") int type,@Query("app_id") String app_id,@Query("app_secret")String app_secret);
 }
