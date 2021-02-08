@@ -3,16 +3,14 @@ package com.example.playandroid.ui.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.example.playandroid.R;
-import com.example.playandroid.utils.ImageBlur;
+import com.example.playandroid.utils.ImageBlur.UtilBitmap;
 
 public class AboutAuthorActivity extends AppCompatActivity {
     @Override
@@ -27,6 +25,7 @@ public class AboutAuthorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_author);
         ImageView iv_bg1_about = (ImageView)findViewById(R.id.iv_bg1_about);
-        ImageBlur.makeBlur(iv_bg1_about,this);
+        //背景图片高斯模糊
+        UtilBitmap.blurImageView(this, iv_bg1_about, 25);
     }
 }
