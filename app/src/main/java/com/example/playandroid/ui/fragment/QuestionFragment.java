@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,20 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
 import com.example.playandroid.adapter.ArticleAdapter;
-import com.example.playandroid.adapter.HomeArticleAdapter;
-import com.example.playandroid.base.BaseApplication;
 import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.model.bean.ArticleBean;
-import com.example.playandroid.presenter.impl.HomePresenterImpl;
 import com.example.playandroid.presenter.impl.QuestionPresenterImpl;
-import com.example.playandroid.ui.CustomView.UILoader;
+import com.example.playandroid.ui.customview.UiLoader;
 import com.example.playandroid.ui.activity.WebActivity;
 import com.example.playandroid.view.IQuestionCallback;
 
 import java.util.List;
 
-public class QuestionFragment extends BaseFragment implements IQuestionCallback, UILoader.OnRetryClickListener {
-    private UILoader mUiLoader;
+/**
+ * @author OkAndGreat
+ */
+public class QuestionFragment extends BaseFragment implements IQuestionCallback, UiLoader.OnRetryClickListener {
+    private UiLoader mUiLoader;
     private QuestionPresenterImpl mQuestionPresenter;
     private View mRootView;
     private ArticleAdapter mArticleAdapter;
@@ -35,7 +34,7 @@ public class QuestionFragment extends BaseFragment implements IQuestionCallback,
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mUiLoader = new UILoader(getContext()) {
+        mUiLoader = new UiLoader(getContext()) {
             @Override
             protected View getSuccessView(ViewGroup container) {
                 return createSuccessView(inflater, container);
@@ -72,7 +71,7 @@ public class QuestionFragment extends BaseFragment implements IQuestionCallback,
     }
 
     private void initItemClickEvent() {
-        mArticleAdapter.setOnArticleURLClickListener(URL -> {
+        mArticleAdapter.setOnArticleUrlClickListener(URL -> {
             Intent intent = new Intent(getContext(), WebActivity.class);
             intent.putExtra("url", URL);
             startActivity(intent);
@@ -83,22 +82,22 @@ public class QuestionFragment extends BaseFragment implements IQuestionCallback,
     @Override
     public void onHomeArticleLoaded(List<ArticleBean.DataDTO.DatasDTO> QuestionArticleData) {
         mArticleAdapter.setData(QuestionArticleData);
-        mUiLoader.updateStatus(UILoader.UIStatus.SUCCESS);
+        mUiLoader.updateStatus(UiLoader.UIStatus.SUCCESS);
     }
 
     @Override
     public void onNetworkError() {
-        mUiLoader.updateStatus(UILoader.UIStatus.NETWORK_ERROR);
+        mUiLoader.updateStatus(UiLoader.UIStatus.NETWORK_ERROR);
     }
 
     @Override
     public void onEmpty() {
-        mUiLoader.updateStatus(UILoader.UIStatus.EMPTY);
+        mUiLoader.updateStatus(UiLoader.UIStatus.EMPTY);
     }
 
     @Override
     public void onLoading() {
-        mUiLoader.updateStatus(UILoader.UIStatus.LOADING);
+        mUiLoader.updateStatus(UiLoader.UIStatus.LOADING);
     }
 
     @Override

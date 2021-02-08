@@ -8,6 +8,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.playandroid.utils.*;
 
+import static com.example.playandroid.utils.FragmentCreator.getFragment;
+
+/**
+ * @author OkAndGreat
+ */
 public class MainContentPagerAdapter extends FragmentPagerAdapter {
     String[] datas = {"首页", "问答", "体系","休息"};
 
@@ -18,7 +23,7 @@ public class MainContentPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return new FragmentCreator().getFragment(position);
+        return getFragment(position);
     }
 
     @Override

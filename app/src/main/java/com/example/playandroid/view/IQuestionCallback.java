@@ -5,6 +5,9 @@ import com.example.playandroid.model.bean.ArticleBean;
 
 import java.util.List;
 
+/**
+ * @author OkAndGreat
+ */
 public interface IQuestionCallback {
     /**
      * 获取推荐内容的结果

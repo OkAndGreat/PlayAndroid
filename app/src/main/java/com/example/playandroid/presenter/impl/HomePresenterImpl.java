@@ -19,6 +19,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+/**
+ * @author OkAndGreat
+ */
 public class HomePresenterImpl implements IHomePresenter {
     private IHomeCallback mIHomeCallback = null;
     private ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;

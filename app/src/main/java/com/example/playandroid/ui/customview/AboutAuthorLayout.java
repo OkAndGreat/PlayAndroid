@@ -1,4 +1,4 @@
-package com.example.playandroid.ui.CustomView;
+package com.example.playandroid.ui.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;

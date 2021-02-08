@@ -2,19 +2,20 @@ package com.example.playandroid.presenter.impl;
 
 import com.example.playandroid.model.API;
 import com.example.playandroid.model.bean.ArticleBean;
-import com.example.playandroid.model.bean.TopHomeArticleBean;
 import com.example.playandroid.presenter.IQuestionPresenter;
 import com.example.playandroid.utils.RetrofitManger;
 import com.example.playandroid.view.IQuestionCallback;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * @author OkAndGreat
+ */
 public class QuestionPresenterImpl implements IQuestionPresenter {
     private IQuestionCallback mIquestionCallback;
 

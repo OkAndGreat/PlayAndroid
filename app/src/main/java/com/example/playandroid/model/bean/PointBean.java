@@ -1,5 +1,8 @@
 package com.example.playandroid.model.bean;
 
+/**
+ * @author OkAndGreat
+ */
 public class PointBean {
 
     /**

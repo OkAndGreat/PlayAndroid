@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
+/**
+ * @author OkAndGreat
+ */
 public class BaseApplication extends Application {
     private static Handler sHandler = null;
 

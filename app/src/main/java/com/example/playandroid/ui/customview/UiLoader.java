@@ -1,7 +1,6 @@
-package com.example.playandroid.ui.CustomView;
+package com.example.playandroid.ui.customview;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.playandroid.R;
-import com.example.playandroid.base.BaseApplication;
 
-public abstract class UILoader extends FrameLayout {
+
+/**
+ * @author OkAndGreat
+ */
+public abstract class UiLoader extends FrameLayout {
 
     private View mLoadingView;
     private View mSuccessView;
@@ -22,21 +24,25 @@ public abstract class UILoader extends FrameLayout {
     private View mEmptyView;
     private OnRetryClickListener mOnRetryClickListener = null;
 
+
     public enum UIStatus {
+        /**
+         *对应不同数据加载状态的枚举
+         */
         LOADING, SUCCESS, NETWORK_ERROR, EMPTY, NONE
     }
 
     public UIStatus mCurrentStatus = UIStatus.NONE;
 
-    public UILoader(@NonNull Context context) {
+    public UiLoader(@NonNull Context context) {
         this(context, null);
     }
 
-    public UILoader(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public UiLoader(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public UILoader(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public UiLoader(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         //
         init();
@@ -45,17 +51,17 @@ public abstract class UILoader extends FrameLayout {
     public void updateStatus(UIStatus status) {
         mCurrentStatus = status;
         //更新UI一定要在主线程上。
-        switchUIByCurrentStatus();
+        switchUiByCurrentStatus();
     }
 
     /**
      * 初始化UI
      */
     private void init() {
-        switchUIByCurrentStatus();
+        switchUiByCurrentStatus();
     }
 
-    private void switchUIByCurrentStatus() {
+    private void switchUiByCurrentStatus() {
         //加载中
         if (mLoadingView == null) {
             mLoadingView = getLoadingView();
@@ -99,19 +105,21 @@ public abstract class UILoader extends FrameLayout {
 
     protected View getNetworkErrorView() {
         View networkErrorView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_error_view, this, false);
-        networkErrorView.findViewById(R.id.network_error_icon).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //重新获取数据
-                if (mOnRetryClickListener != null) {
-                    mOnRetryClickListener.onRetryClick();
-                }
+        networkErrorView.findViewById(R.id.network_error_icon).setOnClickListener(v -> {
+            //重新获取数据
+            if (mOnRetryClickListener != null) {
+                mOnRetryClickListener.onRetryClick();
             }
         });
 
         return networkErrorView;
     }
 
+    /**
+     * 交给子类去创建成功的View
+     * @param container
+     * @return
+     */
     protected abstract View getSuccessView(ViewGroup container);
 
     protected View getLoadingView() {
@@ -123,6 +131,9 @@ public abstract class UILoader extends FrameLayout {
     }
 
     public interface OnRetryClickListener {
+        /**
+         * 网络不佳时重新点击重新加载数据
+         */
         void onRetryClick();
     }
 }

@@ -13,6 +13,9 @@ import android.webkit.WebViewClient;
 
 import com.example.playandroid.R;
 
+/**
+ * @author OkAndGreat
+ */
 public class WebActivity extends AppCompatActivity {
 
     @Override
@@ -29,8 +32,9 @@ public class WebActivity extends AppCompatActivity {
         WebViewClient webViewClient = new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView wv, String url) {
-                if (url == null)
+                if (url == null) {
                     return false;
+                }
 
                 try {
                     if (url.startsWith("weixin://") //微信

@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
 
-        <com.example.playandroid.ui.CustomView.LoadingView
+        <com.example.playandroid.ui.customview.LoadingView
             android:layout_width="24dp"
             android:layout_height="24dp"/>
 

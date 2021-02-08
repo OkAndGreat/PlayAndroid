@@ -1,4 +1,4 @@
-package com.example.playandroid.ui.CustomView;
+package com.example.playandroid.ui.customview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,13 +12,14 @@ import com.example.playandroid.R;
 
 
 /**
- * Created by TrillGates on 2019/1/4.
- * God bless my code!
+ * @author OkAndGreat
  */
 @SuppressLint("AppCompatCustomView")
 public class LoadingView extends ImageView {
 
-    //旋转角度
+    /**
+     * 旋转角度
+     */
     private int rotateDegree = 0;
 
     private boolean mNeedRotate = false;

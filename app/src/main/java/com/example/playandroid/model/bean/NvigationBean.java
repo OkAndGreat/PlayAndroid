@@ -2,6 +2,9 @@ package com.example.playandroid.model.bean;
 
 import java.util.List;
 
+/**
+ * @author OkAndGreat
+ */
 public class NvigationBean {
 
     /**

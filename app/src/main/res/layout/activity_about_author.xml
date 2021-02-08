@@ -11,7 +11,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/author" />
 
-    <com.example.playandroid.ui.CustomView.AboutAuthorLayout
+    <com.example.playandroid.ui.customview.AboutAuthorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,7 +40,7 @@
 
             </LinearLayout>
 
-            <com.example.playandroid.ui.CustomView.RoundRectImageView
+            <com.example.playandroid.ui.customview.RoundRectImageView
                 android:id="@+id/rriv_author"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -209,7 +209,7 @@
         </RelativeLayout>
 
 
-    </com.example.playandroid.ui.CustomView.AboutAuthorLayout>
+    </com.example.playandroid.ui.customview.AboutAuthorLayout>
 
 
 </RelativeLayout>

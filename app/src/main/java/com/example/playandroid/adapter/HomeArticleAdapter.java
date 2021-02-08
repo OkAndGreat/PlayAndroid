@@ -18,21 +18,24 @@ import com.example.playandroid.utils.HtmlUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author OkAndGreat
+ */
 public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.ViewHolder> {
     ArrayList<TopHomeArticleBean.DataDTO> mTopArticle;
     ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
-    OnURLClickListener monURLClickListener;
+    OnUrlClickListener mOnUrlClickListener;
     private static final String TAG = "HomeTopArticleAdapter";
 
     /**
      * 因为置顶文章和普通文章不同因此传入俩组数据
      *
      * @param TopArticle
-     * @param NormalArticle
+     * @param normalArticle
      */
-    public void setData(ArrayList<TopHomeArticleBean.DataDTO> TopArticle, ArrayList<HomeArticleBean.DataDTO.DatasDTO> NormalArticle) {
+    public void setData(ArrayList<TopHomeArticleBean.DataDTO> TopArticle, ArrayList<HomeArticleBean.DataDTO.DatasDTO> normalArticle) {
         this.mTopArticle = TopArticle;
-        mNormalArticle = NormalArticle;
+        mNormalArticle = normalArticle;
         this.notifyDataSetChanged();
     }
 
@@ -50,11 +53,12 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
             holder.mTv_top.setVisibility(View.GONE);
             HomeArticleBean.DataDTO.DatasDTO item = mNormalArticle.get(position);
             //处理item点击事件
-            holder.mll_item_article.setOnClickListener(v -> monURLClickListener.OnClick(item.getLink()));
+            holder.mll_item_article.setOnClickListener(v -> mOnUrlClickListener.onClick(item.getLink()));
 
             Boolean fresh = item.getFresh();
-            if (!fresh)
+            if (!fresh){
                 holder.mTv_new.setVisibility(View.GONE);
+            }
             String author = item.getAuthor();
             String shareUser = item.getShareUser();
             holder.mTv_author_name.setText(author == null ? shareUser : author);
@@ -63,19 +67,22 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
             holder.mTv_accounts.setVisibility(View.GONE);
             String title = item.getTitle();
             List<?> tags = item.getTags();
-            if (tags.toString().contains("本站发布"))
+            if (tags.toString().contains("本站发布")) {
                 holder.mTv_publish.setVisibility(View.VISIBLE);
-            if (tags.toString().contains("项目"))
+            }
+            if (tags.toString().contains("项目")) {
                 holder.mTv_project.setVisibility(View.VISIBLE);
-            if (tags.toString().contains("公众号"))
+            }
+            if (tags.toString().contains("公众号")) {
                 holder.mTv_accounts.setVisibility(View.VISIBLE);
+            }
             //对字符串中可能存在的HTML特殊字符进行Replace
             String etitle = HtmlUtils.escapeHtml(title);
             holder.mTv_title.setText(etitle);
             String desc = item.getDesc();
-            if (desc == null)
+            if (desc == null) {
                 holder.mTv_detail.setVisibility(View.GONE);
-            else {
+            } else {
                 String detail = HtmlUtils.escapeHtml(desc);
                 holder.mTv_detail.setText(detail);
             }
@@ -89,10 +96,11 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
         } else {
             TopHomeArticleBean.DataDTO item = mTopArticle.get(position);
             //处理item点击事件
-            holder.mll_item_article.setOnClickListener(v -> monURLClickListener.OnClick(item.getLink()));
+            holder.mll_item_article.setOnClickListener(v -> mOnUrlClickListener.onClick(item.getLink()));
             Boolean fresh = item.getFresh();
-            if (!fresh)
+            if (!fresh) {
                 holder.mTv_new.setVisibility(View.GONE);
+            }
             String author = item.getAuthor();
             String shareUser = item.getShareUser();
             holder.mTv_author_name.setText(author == null ? shareUser : author);
@@ -101,15 +109,16 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
             holder.mTv_accounts.setVisibility(View.GONE);
             String title = item.getTitle();
             List<?> tags = item.getTags();
-            if (tags.toString().contains("本站发布"))
+            if (tags.toString().contains("本站发布")) {
                 holder.mTv_publish.setVisibility(View.VISIBLE);
+            }
             //对字符串中可能存在的HTML特殊字符进行Replace
             String etitle = HtmlUtils.escapeHtml(title);
             holder.mTv_title.setText(etitle);
             String desc = item.getDesc();
-            if (desc == null)
+            if (desc == null) {
                 holder.mTv_detail.setVisibility(View.GONE);
-            else {
+            } else {
                 String detail = HtmlUtils.escapeHtml(desc);
                 holder.mTv_detail.setText(detail);
             }
@@ -165,11 +174,15 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
 
     }
 
-    public void setOnURLClickListener(OnURLClickListener onURLClickListener) {
-        this.monURLClickListener = onURLClickListener;
+    public void setOnUrlClickListener(OnUrlClickListener onUrlClickListener) {
+        this.mOnUrlClickListener = onUrlClickListener;
     }
 
-    public interface OnURLClickListener {
-        public void OnClick(String URL);
+    public interface OnUrlClickListener {
+        /**
+         * 文章被点击时传递相应文章url
+         * @param uRL
+         */
+        void onClick(String uRL);
     }
 }

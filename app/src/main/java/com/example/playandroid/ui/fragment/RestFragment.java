@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.playandroid.R;
 import com.example.playandroid.base.BaseFragment;
 
+/**
+ * @author OkAndGreat
+ */
 public class RestFragment extends BaseFragment {
     @Nullable
     @Override

@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.playandroid.R;
 import com.example.playandroid.utils.ImageBlur.UtilBitmap;
 
+/**
+ * @author OkAndGreat
+ */
 public class AboutAuthorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,8 +27,8 @@ public class AboutAuthorActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_author);
-        ImageView iv_bg1_about = (ImageView)findViewById(R.id.iv_bg1_about);
+        ImageView ivBgAbout = (ImageView)findViewById(R.id.iv_bg1_about);
         //背景图片高斯模糊
-        UtilBitmap.blurImageView(this, iv_bg1_about, 25);
+        UtilBitmap.blurImageView(this, ivBgAbout, 25);
     }
 }

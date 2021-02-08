@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * @author OkAndGreat
+ */
 public class FragmentCreator {
 
 
@@ -34,6 +37,9 @@ public class FragmentCreator {
                 break;
             case 3:
                 baseFragment = new RestFragment();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + position);
         }
 
         sCache.put(position, baseFragment);

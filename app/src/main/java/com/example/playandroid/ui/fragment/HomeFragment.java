@@ -17,15 +17,18 @@ import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 import com.example.playandroid.presenter.impl.HomePresenterImpl;
-import com.example.playandroid.ui.CustomView.UILoader;
+import com.example.playandroid.ui.customview.UiLoader;
 import com.example.playandroid.ui.activity.WebActivity;
 import com.example.playandroid.view.IHomeCallback;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends BaseFragment implements IHomeCallback, UILoader.OnRetryClickListener {
+/**
+ * @author OkAndGreat
+ */
+public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoader.OnRetryClickListener {
     private static final String TAG = "HomeFragment";
-    private UILoader mUiLoader;
+    private UiLoader mUiLoader;
     private HomePresenterImpl mHomePresenter;
     private View mRootView;
     ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
@@ -35,7 +38,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UILoade
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mUiLoader = new UILoader(getContext()) {
+        mUiLoader = new UiLoader(getContext()) {
             @Override
             protected View getSuccessView(ViewGroup container) {
                 return createSuccessView(inflater, container);
@@ -61,19 +64,19 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UILoade
     private View createSuccessView(LayoutInflater layoutInflater, ViewGroup container) {
         mRootView = layoutInflater.inflate(R.layout.fragment_home, container, false);
         //RecyclerView使用
-        RecyclerView rv_home = mRootView.findViewById(R.id.rv_home);
+        RecyclerView rvHome = mRootView.findViewById(R.id.rv_home);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rv_home.setLayoutManager(linearLayoutManager);
+        rvHome.setLayoutManager(linearLayoutManager);
         //设置适配器
         mHomeArticleAdapter = new HomeArticleAdapter();
-        rv_home.setAdapter(mHomeArticleAdapter);
+        rvHome.setAdapter(mHomeArticleAdapter);
         initItemClickEvent();
         return mRootView;
     }
 
     private void initItemClickEvent() {
-        mHomeArticleAdapter.setOnURLClickListener(URL -> {
+        mHomeArticleAdapter.setOnUrlClickListener(URL -> {
             Intent intent = new Intent(getContext(), WebActivity.class);
             intent.putExtra("url", URL);
             startActivity(intent);
@@ -81,27 +84,27 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UILoade
     }
 
     @Override
-    public void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> NormalArticle, ArrayList<TopHomeArticleBean.DataDTO> TopArticle) {
-        mUiLoader.updateStatus(UILoader.UIStatus.SUCCESS);
-        mTopArticle = TopArticle;
-        mNormalArticle = NormalArticle;
+    public void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> normalArticle, ArrayList<TopHomeArticleBean.DataDTO> topArticle) {
+        mUiLoader.updateStatus(UiLoader.UIStatus.SUCCESS);
+        mTopArticle = topArticle;
+        mNormalArticle = normalArticle;
         mHomeArticleAdapter.setData(mTopArticle, mNormalArticle);
     }
 
     @Override
     public void onNetworkError() {
-        mUiLoader.updateStatus(UILoader.UIStatus.NETWORK_ERROR);
+        mUiLoader.updateStatus(UiLoader.UIStatus.NETWORK_ERROR);
 
     }
 
     @Override
     public void onEmpty() {
-        mUiLoader.updateStatus(UILoader.UIStatus.EMPTY);
+        mUiLoader.updateStatus(UiLoader.UIStatus.EMPTY);
     }
 
     @Override
     public void onLoading() {
-        mUiLoader.updateStatus(UILoader.UIStatus.LOADING);
+        mUiLoader.updateStatus(UiLoader.UIStatus.LOADING);
     }
 
     @Override

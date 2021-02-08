@@ -13,6 +13,9 @@ import com.example.playandroid.R;
 import com.example.playandroid.base.BaseApplication;
 import com.example.playandroid.base.BaseFragment;
 
+/**
+ * @author OkAndGreat
+ */
 public class SystemFragment extends BaseFragment {
     @Nullable
     @Override

@@ -12,14 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
 import com.example.playandroid.model.bean.ArticleBean;
-import com.example.playandroid.model.bean.TopHomeArticleBean;
 import com.example.playandroid.utils.HtmlUtils;
 
 import java.util.List;
 
+/**
+ * @author OkAndGreat
+ */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
     private List<ArticleBean.DataDTO.DatasDTO> mQuestionArticleData;
-    private OnArticleURLClickListener monArticleURLClickListener;
+    private OnArticleUrlClickListener mOnArticleUrlClickListener;
 
     @NonNull
     @Override
@@ -31,10 +33,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public void onBindViewHolder(@NonNull ArticleAdapter.ViewHolder holder, int position) {
         ArticleBean.DataDTO.DatasDTO item = mQuestionArticleData.get(position);
         //处理item点击事件
-        holder.mll_item_article.setOnClickListener(v -> monArticleURLClickListener.OnClick(item.getLink()));
+        holder.mll_item_article.setOnClickListener(v -> mOnArticleUrlClickListener.onClick(item.getLink()));
         Boolean fresh = item.getFresh();
-        if (!fresh)
+        if (!fresh){
             holder.mTv_new.setVisibility(View.GONE);
+        }
         String author = item.getAuthor();
         String shareUser = item.getShareUser();
         holder.mTv_author_name.setText(author == null ? shareUser : author);
@@ -45,8 +48,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         String etitle = HtmlUtils.escapeHtml(title);
         holder.mTv_title.setText(etitle);
         String desc = item.getDesc();
-        if (desc == null)
+        if (desc == null){
             holder.mTv_detail.setVisibility(View.GONE);
+        }
         else {
             String detail = HtmlUtils.escapeHtml(desc);
             holder.mTv_detail.setText(detail);
@@ -65,8 +69,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return mQuestionArticleData.size();
     }
 
-    public void setData(List<ArticleBean.DataDTO.DatasDTO> QuestionArticleData) {
-        mQuestionArticleData = QuestionArticleData;
+    public void setData(List<ArticleBean.DataDTO.DatasDTO> questionArticleData) {
+        mQuestionArticleData = questionArticleData;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -101,11 +105,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         }
     }
 
-    public void setOnArticleURLClickListener(OnArticleURLClickListener onArticleURLClickListener) {
-        monArticleURLClickListener = onArticleURLClickListener;
+    public void setOnArticleUrlClickListener(OnArticleUrlClickListener onArticleUrlClickListener) {
+        mOnArticleUrlClickListener = onArticleUrlClickListener;
     }
 
-    public interface OnArticleURLClickListener {
-        void OnClick(String URL);
+    public interface OnArticleUrlClickListener {
+        /**
+         * 文章点击进入进的页面
+         * @param URL
+         */
+        void onClick(String URL);
     }
 }

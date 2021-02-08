@@ -3,6 +3,9 @@ package com.example.playandroid.presenter;
 import com.example.playandroid.base.IBasePresenter;
 import com.example.playandroid.view.IQuestionCallback;
 
+/**
+ * @author OkAndGreat
+ */
 public interface IQuestionPresenter extends IBasePresenter<IQuestionCallback> {
     /**
      * 获取文章数据

@@ -6,15 +6,17 @@ import com.example.playandroid.model.bean.TopHomeArticleBean;
 import java.util.ArrayList;
 import java.util.List;
 
-//Callback类用来Presenter类和UI类进行通信
+/**
+ * @author OkAndGreat
+ */
 public interface IHomeCallback {
 
     /**
      * 获取推荐内容的结果
-     * @param NormalArticle
-     * @param TopArticle
+     * @param normalArticle
+     * @param topArticle
      */
-    void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> NormalArticle, ArrayList<TopHomeArticleBean.DataDTO> TopArticle);
+    void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> normalArticle, ArrayList<TopHomeArticleBean.DataDTO> topArticle);
     /**
      * 网络错误
      */
