@@ -10,8 +10,8 @@ import android.view.WindowManager;
 import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
-
 public class AboutAuthorLayout extends ViewGroup {
+    //TODO:有一个Bug,滑动到第二页面时还可以滑动到第三个页面
 
     private int mHeight;
     Scroller mScroller;

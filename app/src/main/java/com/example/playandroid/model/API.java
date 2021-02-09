@@ -1,7 +1,9 @@
 package com.example.playandroid.model;
 
 import com.example.playandroid.model.bean.ArticleBean;
+import com.example.playandroid.model.bean.GirlPicBean;
 import com.example.playandroid.model.bean.HomeArticleBean;
+import com.example.playandroid.model.bean.JokesBean;
 import com.example.playandroid.model.bean.ThatDayBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 
@@ -46,4 +48,24 @@ public interface API {
      */
     @GET("/api/history/today")
     Call<ThatDayBean> getThatDayData(@Query("id") int type,@Query("app_id") String app_id,@Query("app_secret")String app_secret);
+
+    /**获取美图pic
+     *
+     * @param page 获取图片的第几页
+     * @param app_id 验证请求用户
+     * @param app_secret 验证请求用户
+     * @return
+     */
+    @GET("/api/image/girl/list")
+    Call<GirlPicBean> getGirlPicData(@Query("page") int page,@Query("app_id") String app_id,@Query("app_secret")String app_secret);
+
+    /**获取笑话数据
+     *
+     * @param page 获取图片的第几页
+     * @param app_id 验证请求用户
+     * @param app_secret 验证请求用户
+     * @return
+     */
+    @GET("/api/jokes/list")
+    Call<JokesBean> getJokesData(@Query("page") int page,@Query("app_id") String app_id,@Query("app_secret")String app_secret);
 }

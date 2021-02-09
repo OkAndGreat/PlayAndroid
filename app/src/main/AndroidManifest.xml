@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayAndroid"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.ThatDayActivity"></activity>
-        <activity android:name=".ui.activity.JokesActivity" />
-        <activity android:name=".ui.activity.GirlActivity" />
+        <activity android:name=".ui.activity.OpenProjectActivity"></activity>
+        <activity android:name=".ui.activity.ThatDayActivity" />
+        <activity android:name=".ui.activity.GirlAndJokesActivity" />
         <activity android:name=".ui.activity.WebActivity" />
         <activity android:name=".ui.activity.AboutAuthorActivity" />
         <activity android:name=".ui.activity.MainActivity">

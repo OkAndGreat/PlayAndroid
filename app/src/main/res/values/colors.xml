@@ -13,4 +13,6 @@
     <color name="red">#ff0000</color><!--红色 -->
     <color name="yellow">#F5E503</color><!--亮金黄色 -->
     <color name="blue">#3880FD</color>
+    <color name="selected_blue">#5A80FD</color>
+    <color name="grey">#E5E3E3</color>
 </resources>

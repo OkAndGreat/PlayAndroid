@@ -92,5 +92,16 @@ public class ThatDayBean {
         public void setDay(Integer day) {
             this.day = day;
         }
+
+        @Override
+        public String toString() {
+            return "DataDTO{" +
+                    "picUrl='" + picUrl + '\'' +
+                    ", title='" + title + '\'' +
+                    ", year='" + year + '\'' +
+                    ", month=" + month +
+                    ", day=" + day +
+                    '}';
+        }
     }
 }

@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:layout_centerHorizontal="true"
                 android:orientation="horizontal">
 
@@ -159,7 +159,7 @@
                     android:gravity="center"
                     android:text="上滑查看作者信息  👆"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -186,7 +186,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
                     android:src="@mipmap/about_qq" />
 
                 <TextView
@@ -202,7 +202,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
+                    android:layout_marginBottom="25dp"
                     android:src="@mipmap/about_wechat" />
             </LinearLayout>
 

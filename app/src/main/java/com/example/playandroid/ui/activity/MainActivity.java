@@ -36,20 +36,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout mDrawerLayout;
     private ImageView mIvHome;
     private TextView mTvBar;
-    private TextView mThatDay;
-    private CardView mLookGirl;
-    private CardView mLookJokes;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //让状态栏透明
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ininView();
@@ -87,9 +77,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mIvHome = (ImageView) findViewById(R.id.iv_home);
         mTvBar = (TextView) findViewById(R.id.tv_Bar);
-        mThatDay = (TextView) findViewById(R.id.tv_look_history);
-        mLookGirl = findViewById(R.id.cv_look_girl);
-        mLookJokes = findViewById(R.id.cv_look_jokes);
     }
 
 
@@ -119,18 +106,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
         mNavView.setNavigationItemSelectedListener(new OnNavigationItemSelectedListener() {
+            private Intent intent;
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_collection:
                         break;
                     case R.id.nav_github:
+                        intent = new Intent(MainActivity.this, OpenProjectActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.nav_history:
                         break;
                     case R.id.nav_info:
-                        Intent intent = new Intent(MainActivity.this, AboutAuthorActivity.class);
-                        startActivity(intent);
+                        this.intent = new Intent(MainActivity.this, AboutAuthorActivity.class);
+                        startActivity(this.intent);
                         break;
                     case R.id.nav_point:
                         break;
@@ -143,9 +133,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
         mIvHome.setOnClickListener(this);
-        mThatDay.setOnClickListener(this);
-//        mLookGirl.setOnClickListener(this);
-//        mLookJokes.setOnClickListener(this);
     }
 
 
@@ -155,18 +142,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.iv_home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.tv_look_history:
-                intent = new Intent(this, ThatDayActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.cv_look_girl:
-                intent = new Intent(this, GirlActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.cv_look_jokes:
-                intent = new Intent(this, JokesActivity.class);
-                startActivity(intent);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
