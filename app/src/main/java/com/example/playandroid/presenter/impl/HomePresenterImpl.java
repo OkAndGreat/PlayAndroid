@@ -53,6 +53,7 @@ public class HomePresenterImpl implements IHomePresenter {
                         mIHomeCallback.onEmpty();
                     } else {
                         mTopArticle = (ArrayList<TopHomeArticleBean.DataDTO>)response.body().getData();
+                        getHomeArticle(api);
                     }
                 } else {
                     //网络错误,让UILoader去显示网络错误的UI界面
@@ -66,6 +67,10 @@ public class HomePresenterImpl implements IHomePresenter {
                 mIHomeCallback.onNetworkError();
             }
         });
+
+    }
+
+    private void getHomeArticle(API api) {
         Call<HomeArticleBean> homeArticle = api.getHomeArticle(1);
         homeArticle.enqueue(new Callback<HomeArticleBean>() {
             @Override
@@ -89,7 +94,6 @@ public class HomePresenterImpl implements IHomePresenter {
                 mIHomeCallback.onNetworkError();
             }
         });
-
     }
 
     @Override

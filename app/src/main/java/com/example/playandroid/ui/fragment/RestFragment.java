@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,9 +21,9 @@ import com.example.playandroid.ui.activity.ThatDayActivity;
  * @author OkAndGreat
  */
 public class RestFragment extends BaseFragment implements View.OnClickListener {
-    private CardView mThatDay;
-    private CardView mLookGirl;
-    private CardView mLookJokes;
+    private LinearLayout mThatDay;
+    private LinearLayout mLookGirl;
+    private LinearLayout mLookJokes;
     private View mCvPlease;
     private View mView;
 

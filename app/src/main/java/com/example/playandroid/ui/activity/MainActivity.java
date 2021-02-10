@@ -2,6 +2,7 @@ package com.example.playandroid.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -36,7 +37,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout mDrawerLayout;
     private ImageView mIvHome;
     private TextView mTvBar;
-
+    private View mTvUserName;
+    private View mIconImage;
+    private View mTvPoint;
+    private View mTvPointRank;
+    private boolean mLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +82,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mIvHome = (ImageView) findViewById(R.id.iv_home);
         mTvBar = (TextView) findViewById(R.id.tv_Bar);
+        mIconImage = findViewById(R.id.icon_image);
+        mTvUserName = findViewById(R.id.tv_username);
+        mTvPoint = findViewById(R.id.tv_point);
+        mTvPointRank = findViewById(R.id.tv_point_rank);
     }
 
 
     private void initListener() {
 
+        //TabLayout的监听
         mMainContentTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -105,8 +115,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         });
+
+        //NavigationView的监听
         mNavView.setNavigationItemSelectedListener(new OnNavigationItemSelectedListener() {
             private Intent intent;
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -124,7 +137,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         break;
                     case R.id.nav_point:
                         break;
-                    case R.id.nav_setting:
+                    case R.id.nav_exit:
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + item.getItemId());
@@ -132,7 +145,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 return true;
             }
         });
+
+        //点击IvHome打开Drawer的监听
         mIvHome.setOnClickListener(this);
+
+        //进入登录界面和积分界面的监听
+        mIconImage.setOnClickListener(this);
+        mTvUserName.setOnClickListener(this);
+        mTvPoint.setOnClickListener(this);
+        mTvPointRank.setOnClickListener(this);
     }
 
 
@@ -143,10 +164,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.iv_home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
+            case R.id.icon_image:
+            case R.id.tv_username:
+                if (mLogin == false) {
+                    intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.tv_point:
+            case R.id.tv_point_rank:
+                if (mLogin == true) {
+                    intent = new Intent(this, PointActivity.class);
+                    startActivity(intent);
+                }
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
 
     }
+
+    //用来判断当前是否登录以便显示不同的界面
+    public boolean isLogin() {
+        return mLogin;
+    }
+
+    public void setLogin(boolean login) {
+        mLogin = login;
+    }
+
 }
 

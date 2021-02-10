@@ -6,13 +6,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_playandroid"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayAndroid"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.OpenProjectActivity"></activity>
+        <activity android:name=".ui.activity.HistoryActivity"></activity>
+        <activity android:name=".ui.activity.CollectionActivity" />
+        <activity android:name=".ui.activity.PointActivity" />
+        <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.RegisterActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.OpenProjectActivity" />
         <activity android:name=".ui.activity.ThatDayActivity" />
         <activity android:name=".ui.activity.GirlAndJokesActivity" />
         <activity android:name=".ui.activity.WebActivity" />
