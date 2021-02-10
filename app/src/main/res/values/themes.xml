@@ -13,4 +13,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="hintAppearence" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14dp</item>
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
 </resources>

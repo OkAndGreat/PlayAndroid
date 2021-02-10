@@ -15,21 +15,25 @@ import com.example.playandroid.R;
 import com.example.playandroid.adapter.ArticleAdapter;
 import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.model.bean.ArticleBean;
-import com.example.playandroid.presenter.impl.QuestionPresenterImpl;
+import com.example.playandroid.model.bean.ShareArticlesBean;
+import com.example.playandroid.presenter.impl.ArticlePresenterImpl;
 import com.example.playandroid.ui.customview.UiLoader;
 import com.example.playandroid.ui.activity.WebActivity;
-import com.example.playandroid.view.IQuestionCallback;
+import com.example.playandroid.view.IArticleCallback;
 
 import java.util.List;
 
 /**
  * @author OkAndGreat
  */
-public class QuestionFragment extends BaseFragment implements IQuestionCallback, UiLoader.OnRetryClickListener {
+public class ArticleFragment extends BaseFragment implements IArticleCallback, UiLoader.OnRetryClickListener {
     private UiLoader mUiLoader;
-    private QuestionPresenterImpl mQuestionPresenter;
+    private ArticlePresenterImpl mArticlePresenter;
     private View mRootView;
     private ArticleAdapter mArticleAdapter;
+
+
+    private String SearchWord = null;
 
     @Nullable
     @Override
@@ -40,12 +44,17 @@ public class QuestionFragment extends BaseFragment implements IQuestionCallback,
                 return createSuccessView(inflater, container);
             }
         };
+
         //获取到逻辑层的对象
-        mQuestionPresenter = new QuestionPresenterImpl();
+        mArticlePresenter = new ArticlePresenterImpl();
         //设置通知接口的注册
-        mQuestionPresenter.registerViewCallback(this);
-        //获取推荐列表
-        mQuestionPresenter.getQuestionArticleData();
+        mArticlePresenter.registerViewCallback(this);
+        //获取推荐列表 用if else来判断增强该类的可复用性
+        if (SearchWord == null) {
+            mArticlePresenter.getQuestionArticleData();
+        } else {
+            mArticlePresenter.getSearchArticleData(SearchWord);
+        }
 
         if (mUiLoader.getParent() instanceof ViewGroup) {
             ((ViewGroup) mUiLoader.getParent()).removeView(mUiLoader);
@@ -80,9 +89,14 @@ public class QuestionFragment extends BaseFragment implements IQuestionCallback,
 
 
     @Override
-    public void onHomeArticleLoaded(List<ArticleBean.DataDTO.DatasDTO> QuestionArticleData) {
-        mArticleAdapter.setData(QuestionArticleData);
+    public void onArticleLoaded(List<ArticleBean.DataDTO.DatasDTO> ArticleData) {
+        mArticleAdapter.setData(ArticleData);
         mUiLoader.updateStatus(UiLoader.UIStatus.SUCCESS);
+    }
+
+    @Override
+    public void onArticleLoaded(List<ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO> ArticleData, int type) {
+
     }
 
     @Override
@@ -104,13 +118,21 @@ public class QuestionFragment extends BaseFragment implements IQuestionCallback,
     public void onDestroyView() {
         super.onDestroyView();
         //取消接口的注册
-        mQuestionPresenter.unRegisterViewCallback(this);
+        mArticlePresenter.unRegisterViewCallback(this);
     }
 
     @Override
     public void onRetryClick() {
         //表示网络不佳的时候，用户点击了重试
         //重新获取数据即可
-        mQuestionPresenter.getQuestionArticleData();
+        mArticlePresenter.getQuestionArticleData();
+    }
+
+    public String getSearchWord() {
+        return SearchWord;
+    }
+
+    public void setSearchWord(String searchWord) {
+        SearchWord = searchWord;
     }
 }

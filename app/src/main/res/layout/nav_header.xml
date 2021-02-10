@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_unlogin"
+        android:id="@+id/tv_nav_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -31,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/icon_image" />
 
     <LinearLayout
+        android:id="@+id/ll_nav_logined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -49,17 +50,11 @@
             android:textSize="20sp"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/tv_point"
+            android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="积分" />
-        <TextView
-            android:id="@+id/tv_point_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="积分排名"/>
+            android:text="id" />
 
     </LinearLayout>
 

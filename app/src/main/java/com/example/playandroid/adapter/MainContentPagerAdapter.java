@@ -14,7 +14,7 @@ import static com.example.playandroid.utils.FragmentCreator.getFragment;
  * @author OkAndGreat
  */
 public class MainContentPagerAdapter extends FragmentPagerAdapter {
-    String[] datas = {"首页", "问答", "体系","休息"};
+    String[] datas = {"首页", "问答", "分享","休息"};
 
     public MainContentPagerAdapter(FragmentManager fragmentManager, int behavior) {
         super(fragmentManager, behavior);

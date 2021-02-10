@@ -1,5 +1,7 @@
 package com.example.playandroid.utils;
 
+import com.example.playandroid.model.API;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;

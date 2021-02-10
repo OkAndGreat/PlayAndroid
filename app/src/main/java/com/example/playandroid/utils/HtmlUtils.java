@@ -21,6 +21,8 @@ public class HtmlUtils {
         str = str.replace("&#39;", "");
         str = str.replace("<a href=\"", "");
         str = str.replace("\">", "");
+        str = str.replace("&lt;", "<");
+        str = str.replace("&gt;", ">");
         return str;
     }
 }

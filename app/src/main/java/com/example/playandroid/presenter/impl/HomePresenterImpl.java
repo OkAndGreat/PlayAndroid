@@ -42,7 +42,8 @@ public class HomePresenterImpl implements IHomePresenter {
     public void getHomeArticleData() {
         mIHomeCallback.onLoading();
         RetrofitManger instance = RetrofitManger.getInstance();
-        API api = instance.createMainRetrofit().create(API.class);
+        Retrofit mainRetrofit = instance.createMainRetrofit();
+        API api = mainRetrofit.create(API.class);
         Call<TopHomeArticleBean> topHomeArticle = api.getTopHomeArticle();
         topHomeArticle.enqueue(new Callback<TopHomeArticleBean>() {
             @Override
@@ -71,7 +72,7 @@ public class HomePresenterImpl implements IHomePresenter {
     }
 
     private void getHomeArticle(API api) {
-        Call<HomeArticleBean> homeArticle = api.getHomeArticle(1);
+        Call<HomeArticleBean> homeArticle = api.getHomeArticle(0);
         homeArticle.enqueue(new Callback<HomeArticleBean>() {
             @Override
             public void onResponse(Call<HomeArticleBean> call, Response<HomeArticleBean> response) {

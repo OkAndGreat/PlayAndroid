@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
 import com.example.playandroid.model.bean.ArticleBean;
+import com.example.playandroid.model.bean.ShareArticlesBean;
 import com.example.playandroid.utils.HtmlUtils;
 
 import java.util.List;
@@ -20,8 +21,10 @@ import java.util.List;
  * @author OkAndGreat
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
-    private List<ArticleBean.DataDTO.DatasDTO> mQuestionArticleData;
+    private List<ArticleBean.DataDTO.DatasDTO> mArticleData;
+    List<ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO> mShareArticleData;
     private OnArticleUrlClickListener mOnArticleUrlClickListener;
+    private int mType;
 
     @NonNull
     @Override
@@ -31,7 +34,50 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ArticleAdapter.ViewHolder holder, int position) {
-        ArticleBean.DataDTO.DatasDTO item = mQuestionArticleData.get(position);
+        if(mType==1){
+            ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO item = mShareArticleData.get(position);
+            bindShareArticleView(holder,item);
+        }else {
+            ArticleBean.DataDTO.DatasDTO item = mArticleData.get(position);
+            bindArticleView(holder,item);
+        }
+
+    }
+
+    private void bindShareArticleView(@NonNull ViewHolder holder,ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO item) {
+        //处理item点击事件
+        holder.mll_item_article.setOnClickListener(v -> mOnArticleUrlClickListener.onClick(item.getLink()));
+        Boolean fresh = item.getFresh();
+        if (!fresh){
+            holder.mTv_new.setVisibility(View.GONE);
+        }
+        String author = item.getAuthor();
+        String shareUser = item.getShareUser();
+        holder.mTv_author_name.setText(author == null ? shareUser : author);
+        holder.mTv_project.setVisibility(View.GONE);
+        holder.mTv_accounts.setVisibility(View.GONE);
+        String title = item.getTitle();
+        //对字符串中可能存在的HTML特殊字符进行Replace
+        String etitle = HtmlUtils.escapeHtml(title);
+        holder.mTv_title.setText(etitle);
+        String desc = item.getDesc();
+        if (desc == null){
+            holder.mTv_detail.setVisibility(View.GONE);
+        }
+        else {
+            String detail = HtmlUtils.escapeHtml(desc);
+            holder.mTv_detail.setText(detail);
+        }
+        String niceDate = item.getNiceDate();
+        holder.mTv_time.setText(niceDate);
+        holder.mIv_show.setVisibility(View.GONE);
+        holder.mTv_top.setVisibility(View.GONE);
+        String superChapterName = item.getSuperChapterName();
+        String chapterName = item.getChapterName();
+        holder.mTv_chapter.setText(superChapterName + "&" + chapterName);
+    }
+
+    private void bindArticleView(@NonNull ViewHolder holder,ArticleBean.DataDTO.DatasDTO item) {
         //处理item点击事件
         holder.mll_item_article.setOnClickListener(v -> mOnArticleUrlClickListener.onClick(item.getLink()));
         Boolean fresh = item.getFresh();
@@ -66,11 +112,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mQuestionArticleData.size();
+        return mArticleData.size();
     }
 
     public void setData(List<ArticleBean.DataDTO.DatasDTO> questionArticleData) {
-        mQuestionArticleData = questionArticleData;
+        mArticleData = questionArticleData;
+    }
+
+    public void setData(List<ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO> ArticleData, int type){
+        mShareArticleData=ArticleData;
+        mType=type;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

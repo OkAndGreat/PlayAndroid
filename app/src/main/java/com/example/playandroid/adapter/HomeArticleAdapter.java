@@ -1,5 +1,6 @@
 package com.example.playandroid.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.example.playandroid.R;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 import com.example.playandroid.utils.HtmlUtils;
+import com.example.playandroid.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,8 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
             }
             String author = item.getAuthor();
             String shareUser = item.getShareUser();
-            holder.mTv_author_name.setText(author == null ? shareUser : author);
+            LogUtil.d(TAG,String.valueOf(author.equals(""))+" | "+author+" | "+shareUser);
+            holder.mTv_author_name.setText(author.equals("") ? shareUser : author);
             holder.mTv_project.setVisibility(View.GONE);
             holder.mTv_publish.setVisibility(View.GONE);
             holder.mTv_accounts.setVisibility(View.GONE);
