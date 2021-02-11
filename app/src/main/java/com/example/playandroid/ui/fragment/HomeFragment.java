@@ -1,6 +1,9 @@
 package com.example.playandroid.ui.fragment;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +21,10 @@ import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 import com.example.playandroid.presenter.impl.HomePresenterImpl;
+import com.example.playandroid.ui.activity.MainActivity;
 import com.example.playandroid.ui.customview.UiLoader;
 import com.example.playandroid.ui.activity.WebActivity;
+import com.example.playandroid.utils.LogUtil;
 import com.example.playandroid.view.IHomeCallback;
 
 import java.util.ArrayList;
@@ -80,10 +85,48 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoade
     }
 
     private void initItemClickEvent() {
-        mHomeArticleAdapter.setOnUrlClickListener(URL -> {
-            Intent intent = new Intent(getContext(), WebActivity.class);
-            intent.putExtra("url", URL);
-            startActivity(intent);
+        mHomeArticleAdapter.setOnUrlClickListener(new HomeArticleAdapter.OnUrlClickListener() {
+            @Override
+            public void onClick(TopHomeArticleBean.DataDTO TopArticle, HomeArticleBean.DataDTO.DatasDTO normalArticle, String URL) {
+                SQLiteDatabase db = MainActivity.getDb();
+                ContentValues contentValues = new ContentValues();
+                if (TopArticle != null) {
+                    contentValues.put("link", TopArticle.getLink());
+                    contentValues.put("fresh", String.valueOf(TopArticle.getFresh()));
+                    contentValues.put("author", TopArticle.getAuthor());
+                    contentValues.put("ShareUser", TopArticle.getShareUser());
+                    contentValues.put("title", TopArticle.getTitle());
+                    contentValues.put("des", TopArticle.getDesc());
+                    contentValues.put("nicedata", TopArticle.getNiceDate());
+                    contentValues.put("superchaptername", TopArticle.getSuperChapterName());
+                    contentValues.put("chaptername", TopArticle.getChapterName());
+                    db.insert("item", null, contentValues);
+                }
+                if (normalArticle != null) {
+                    contentValues.put("link", normalArticle.getLink());
+                    contentValues.put("fresh", String.valueOf(normalArticle.getFresh()));
+                    contentValues.put("author", normalArticle.getAuthor());
+                    contentValues.put("ShareUser", normalArticle.getShareUser());
+                    contentValues.put("title", normalArticle.getTitle());
+                    contentValues.put("des", normalArticle.getDesc());
+                    contentValues.put("nicedata", normalArticle.getNiceDate());
+                    contentValues.put("superchaptername", normalArticle.getSuperChapterName());
+                    contentValues.put("chaptername", normalArticle.getChapterName());
+                    db.insert("item", null, contentValues);
+                }
+                Cursor cursor = db.query("item", null, null, null, null, null, null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        // 遍历Cursor对象，取出数据并打印
+                        LogUtil.d(TAG, "Android DataBase Link-->" + cursor.getString((cursor.getColumnIndex("link"))));
+                        LogUtil.d(TAG, "Android DataBase Author-->" + cursor.getString(cursor.getColumnIndex("author")));
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.putExtra("url", URL);
+                startActivity(intent);
+            }
         });
     }
 

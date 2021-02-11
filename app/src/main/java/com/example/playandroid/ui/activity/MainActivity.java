@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.playandroid.R;
 import com.example.playandroid.base.BaseActivity;
+import com.example.playandroid.utils.DatabaseHelper;
 import com.example.playandroid.utils.LogUtil;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
@@ -47,6 +49,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private View mNavGroup;
     private View mTvNavExit;
     private static int mId;
+    private static SQLiteDatabase mDb;
+    private View mHeaderLayout;
 
 
     @Override
@@ -55,15 +59,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         ininView();
         initListener();
+        initDb();
+    }
 
+    private void initDb() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this, "History.db", null, 1);
+        mDb = databaseHelper.getWritableDatabase();
     }
 
     private void ininView() {
         //ViewPager+Fragment+TabLayoou组合
         mMainContentTabLayout = (TabLayout) findViewById(R.id.Main_Content_TabLayout);
         ViewPager mainContentPager = (ViewPager) findViewById(R.id.Main_Content_Pager);
-        //暂时解决了奔溃问题,但这样做可能让程序效率变慢
-        //TODO:如何有效解决崩溃问题?
         mainContentPager.setOffscreenPageLimit(3);
         MainContentPagerAdapter mainContentPagerAdapter = new MainContentPagerAdapter(getSupportFragmentManager(), MainContentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mainContentPager.setAdapter(mainContentPagerAdapter);
@@ -88,13 +95,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mIvHome = (ImageView) findViewById(R.id.iv_home);
         mTvBar = (TextView) findViewById(R.id.tv_Bar);
-        View headerLayout = mNavView.inflateHeaderView(R.layout.nav_header);
-        mIconImage = headerLayout.findViewById(R.id.icon_image);
-        mTvUserName = headerLayout.findViewById(R.id.tv_username);
-        mTvNavLogin = headerLayout.findViewById(R.id.tv_nav_login);
-        mLlNavLogined = headerLayout.findViewById(R.id.ll_nav_logined);
-        mTvNavExit = headerLayout.findViewById(R.id.tv_nav_exit);
-        mTvId = (TextView) headerLayout.findViewById(R.id.tv_id);
+        mHeaderLayout = mNavView.inflateHeaderView(R.layout.nav_header);
+        mIconImage = mHeaderLayout.findViewById(R.id.icon_image);
+        mTvUserName = mHeaderLayout.findViewById(R.id.tv_username);
+        mTvNavLogin = mHeaderLayout.findViewById(R.id.tv_nav_login);
+        mLlNavLogined = mHeaderLayout.findViewById(R.id.ll_nav_logined);
+        mTvNavExit = mHeaderLayout.findViewById(R.id.tv_nav_exit);
+        mTvId = (TextView) mHeaderLayout.findViewById(R.id.tv_id);
         mIvSearch = (ImageView) findViewById(R.id.iv_home_search);
 
     }
@@ -134,19 +141,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.nav_collection:
-                        break;
                     case R.id.nav_github:
                         intent = new Intent(MainActivity.this, OpenProjectActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.nav_history:
+                        intent = new Intent(MainActivity.this, HistoryActivity.class);
+                        startActivity(this.intent);
                         break;
                     case R.id.nav_info:
-                        this.intent = new Intent(MainActivity.this, AboutAuthorActivity.class);
+                        intent = new Intent(MainActivity.this, AboutAuthorActivity.class);
                         startActivity(this.intent);
                         break;
                     case R.id.nav_point:
+                        intent = new Intent(MainActivity.this, PointActivity.class);
+                        startActivity(this.intent);
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + item.getItemId());
@@ -154,15 +163,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 return true;
             }
         });
-
+        mIvSearch.setOnClickListener(this);
         //点击IvHome打开Drawer的监听
         mIvHome.setOnClickListener(this);
-        mTvNavLogin.setOnClickListener(this);
-        //进入登录界面和积分界面的监听
+        //进入Drawer界面的监听
         mIconImage.setOnClickListener(this);
+        mTvNavLogin.setOnClickListener(this);
         mTvUserName.setOnClickListener(this);
         mTvId.setOnClickListener(this);
-        mIvSearch.setOnClickListener(this);
         mTvNavExit.setOnClickListener(this);
     }
 
@@ -186,9 +194,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.tv_nav_exit:
-                mTvNavExit.setVisibility(View.INVISIBLE);
-                mTvNavLogin.setVisibility(View.VISIBLE);
-                mLlNavLogined.setVisibility(View.INVISIBLE);
+                mNavView.removeHeaderView(mHeaderLayout);
+                mHeaderLayout = mNavView.inflateHeaderView(R.layout.nav_header);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -217,18 +224,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
-                    mId = data.getIntExtra("id",10000);
+                    mId = data.getIntExtra("id", 10000);
                     String username = data.getStringExtra("username");
                     mTvNavExit.setVisibility(View.VISIBLE);
                     mTvNavLogin.setVisibility(View.INVISIBLE);
                     mLlNavLogined.setVisibility(View.VISIBLE);
-                    mTvUserName.setText("用户名:"+"  "+username);
-                    mTvId.setText("Id:"+"  "+ mId);
+                    mTvUserName.setText("用户名:" + "  " + username);
+                    mTvId.setText("Id:" + "  " + mId);
                 }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + requestCode);
         }
+    }
+
+    public static SQLiteDatabase getDb() {
+        return mDb;
     }
 
     public static int getId() {

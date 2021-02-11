@@ -12,6 +12,7 @@ import com.example.playandroid.R;
 import com.example.playandroid.base.BaseActivity;
 import com.example.playandroid.model.API;
 import com.example.playandroid.model.bean.RegisterBean;
+import com.example.playandroid.utils.LogUtil;
 import com.example.playandroid.utils.RetrofitManger;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -29,6 +30,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private String mUserName;
     private String mPassWord;
     private String mRePassword;
+    private static final String TAG = "RegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +62,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             onBackPressed();
         }else if(id==R.id.btn_register){
             API api = RetrofitManger.getInstance().createMainRetrofit().create(API.class);
-            api.postRegData(mUserRegInputLayout.getEditText().toString(),mPasswordRegInputLayout.getEditText().getText().toString(),mRepasswordRegInputLayout.getEditText().getText().toString()).enqueue(new Callback<RegisterBean>() {
+            api.postRegData(mUserRegInputLayout.getEditText().getText().toString(),mPasswordRegInputLayout.getEditText().getText().toString(),mRepasswordRegInputLayout.getEditText().getText().toString()).enqueue(new Callback<RegisterBean>() {
                 @Override
                 public void onResponse(Call<RegisterBean> call, Response<RegisterBean> response) {
+                    LogUtil.d(TAG,"mPasswordRegInputLayout.getEditText().getText().toString()"+mPasswordRegInputLayout.getEditText().getText().toString());
+                    LogUtil.d(TAG,"mRePasswordRegInputLayout.getEditText().getText().toString()"+mRepasswordRegInputLayout.getEditText().getText().toString());
+                    LogUtil.d(TAG,"mRePasswordRegInputLayout.getEditText().getText().toString()"+mRepasswordRegInputLayout.getEditText().getText().toString());
                     if(response.body().getErrorCode()==0){
                         //注册成功
+                        Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent();
                         intent.putExtra("username",mUserRegInputLayout.getEditText().getText().toString());
                         intent.putExtra("password",mPasswordRegInputLayout.getEditText().getText().toString());

@@ -38,7 +38,7 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
     public void setData(ArrayList<TopHomeArticleBean.DataDTO> TopArticle, ArrayList<HomeArticleBean.DataDTO.DatasDTO> normalArticle) {
         this.mTopArticle = TopArticle;
         mNormalArticle = normalArticle;
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -55,7 +55,7 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
             holder.mTv_top.setVisibility(View.GONE);
             HomeArticleBean.DataDTO.DatasDTO item = mNormalArticle.get(position);
             //处理item点击事件
-            holder.mll_item_article.setOnClickListener(v -> mOnUrlClickListener.onClick(item.getLink()));
+            holder.mll_item_article.setOnClickListener(v -> mOnUrlClickListener.onClick(null,item,item.getLink()));
 
             Boolean fresh = item.getFresh();
             if (!fresh){
@@ -99,7 +99,7 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
         } else {
             TopHomeArticleBean.DataDTO item = mTopArticle.get(position);
             //处理item点击事件
-            holder.mll_item_article.setOnClickListener(v -> mOnUrlClickListener.onClick(item.getLink()));
+            holder.mll_item_article.setOnClickListener(v -> mOnUrlClickListener.onClick(item,null,item.getLink()));
             Boolean fresh = item.getFresh();
             if (!fresh) {
                 holder.mTv_new.setVisibility(View.GONE);
@@ -184,8 +184,7 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
     public interface OnUrlClickListener {
         /**
          * 文章被点击时传递相应文章url
-         * @param uRL
          */
-        void onClick(String uRL);
+        void onClick(TopHomeArticleBean.DataDTO TopArticle, HomeArticleBean.DataDTO.DatasDTO normalArticle,String URL);
     }
 }

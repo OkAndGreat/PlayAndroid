@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 @Override
                 public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                     Integer errorCode = response.body().getErrorCode();
+                    LogUtil.d(TAG,"response.body().getErrorCode()-->"+response.body().getErrorCode());
                     if (errorCode == 0) {
                         MainActivity.setLogin(true);
                         Intent intent = new Intent();

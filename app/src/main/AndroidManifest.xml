@@ -12,24 +12,51 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayAndroid"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.PostArticleActivity"></activity>
-        <activity android:name=".ui.activity.HistoryActivity" />
-        <activity android:name=".ui.activity.CollectionActivity" />
-        <activity android:name=".ui.activity.PointActivity" />
-        <activity android:name=".ui.activity.SearchActivity" />
-        <activity android:name=".ui.activity.RegisterActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.OpenProjectActivity" />
-        <activity android:name=".ui.activity.ThatDayActivity" />
-        <activity android:name=".ui.activity.GirlAndJokesActivity" />
-        <activity android:name=".ui.activity.WebActivity" />
-        <activity android:name=".ui.activity.AboutAuthorActivity" />
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.PostArticleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PointActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.OpenProjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ThatDayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.GirlAndJokesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WebActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AboutAuthorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
