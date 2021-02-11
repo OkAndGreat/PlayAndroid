@@ -39,6 +39,7 @@ public class HistoryActivity extends BaseActivity {
         mBack = findViewById(R.id.iv_history_back);
         RecyclerView RvHistory = (RecyclerView) findViewById(R.id.rv_history);
         HistoryListAdapter historyListAdapter = new HistoryListAdapter();
+        historyListAdapter.getData();
         RvHistory.setAdapter(historyListAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

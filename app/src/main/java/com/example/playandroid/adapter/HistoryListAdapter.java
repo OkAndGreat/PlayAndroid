@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.ViewHolder> {
     private ArrayList<ArticleBean.DataDTO.DatasDTO> mArticleDataList=new ArrayList<ArticleBean.DataDTO.DatasDTO>();;
     private OnArticleUrlClickListener mOnArticleUrlClickListener;
+    private static final String TAG = "HistoryListAdapter";
 
     @NonNull
     @Override
@@ -64,8 +65,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         holder.mTv_chapter.setText(superChapterName + "&" + chapterName);
     }
 
-    @Override
-    public int getItemCount() {
+    public void getData(){
         SQLiteDatabase db = MainActivity.getDb();
         Cursor cursor = db.query("item", null, null, null, null, null, null);
         if (cursor.moveToFirst()) {
@@ -85,6 +85,11 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             } while (cursor.moveToNext());
         }
         cursor.close();
+        LogUtil.d(TAG,"mArticleDataList.size()-->"+String.valueOf(mArticleDataList.size()));
+    }
+
+    @Override
+    public int getItemCount() {
         return mArticleDataList.size();
     }
 
