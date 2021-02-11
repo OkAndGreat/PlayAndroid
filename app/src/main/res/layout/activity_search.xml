@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE LinearLayout [<!ELEMENT LinearLayout (LinearLayout|RelativeLayout|FrameLayout)*><!ATTLIST LinearLayoutandroid:background CDATA #IMPLIEDandroid:fitsSystemWindows CDATA #IMPLIEDandroid:layout_height CDATA #REQUIREDandroid:layout_width CDATA #REQUIREDandroid:orientation CDATA #REQUIREDtools:context CDATA #IMPLIEDxmlns:android CDATA #IMPLIEDxmlns:app CDATA #IMPLIEDxmlns:tools CDATA #IMPLIED><!ELEMENT RelativeLayout (ImageView|androidx.appcompat.widget.SearchView)*><!ATTLIST RelativeLayoutandroid:layout_height CDATA #REQUIREDandroid:layout_marginBottom CDATA #REQUIREDandroid:layout_marginRight CDATA #IMPLIEDandroid:layout_weight CDATA #REQUIREDandroid:layout_width CDATA #REQUIRED><!ELEMENT ImageView (#PCDATA)><!ATTLIST ImageViewandroid:id CDATA #REQUIREDandroid:layout_width CDATA #REQUIREDandroid:layout_height CDATA #REQUIREDandroid:layout_centerInParent CDATA #REQUIREDandroid:src CDATA #REQUIRED><!ELEMENT androidx.appcompat.widget.SearchView (#PCDATA)><!ATTLIST androidx.appcompat.widget.SearchViewandroid:id CDATA #REQUIREDandroid:layout_width CDATA #REQUIREDandroid:background CDATA #REQUIREDandroid:layout_height CDATA #REQUIREDapp:queryHint CDATA #REQUIREDandroid:layout_centerInParent CDATA #REQUIRED><!ELEMENT FrameLayout (#PCDATA)><!ATTLIST FrameLayoutandroid:id CDATA #REQUIREDandroid:layout_width CDATA #REQUIREDandroid:layout_height CDATA #REQUIRED>]>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,7 +39,7 @@
                android:id="@+id/sv_search"
                android:layout_width="match_parent"
                android:background="@drawable/shape_sv_bg"
-               android:layout_height="36dp"
+               android:layout_height="40dp"
                app:queryHint="用空格隔开多个关键字"
                android:layout_centerInParent="true"/>
 

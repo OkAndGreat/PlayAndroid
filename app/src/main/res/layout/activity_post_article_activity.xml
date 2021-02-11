@@ -7,29 +7,52 @@
     android:orientation="vertical"
     tools:context=".ui.activity.PostArticleActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/blue">
+        android:background="@color/blue"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_share_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/back" />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_share_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/back" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_weight="4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:text="分享文章"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </RelativeLayout>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:text="分享文章"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,23 +87,23 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="40dp"
-        app:backgroundTint="@null"
         android:layout_marginTop="15dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/shape_login_btn_bg"
         android:text="点击分享"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:backgroundTint="@null" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
-        android:textSize="16sp"
-        android:singleLine="false"
+        android:layout_marginRight="15dp"
         android:padding="8dp"
+        android:singleLine="false"
         android:text="1.只要是任何好文都可以分享哈,并不一定要是原创!投递的文章会进入广场tab;\n2.CSDN,掘金,简书等官方博客站点会直接通过,不需要审核;\n3.其他个人站点会进入审核阶段,不要投递任何无效链接,否则可能会对你的账号产生一定影响;\n4.如果你发现错误,可以提交日志,让我们一起使网站变得更好。\n5.由于本站为个人开发与维护,会尽力保证24小时内审核,当然有可能哪天太累,会延期,请保持佛系
-"/>
+"
+        android:textSize="16sp" />
 
 </LinearLayout>

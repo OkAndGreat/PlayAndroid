@@ -98,8 +98,8 @@ public interface API {
      * @param page
      * @return
      */
-    @GET("/user/lg/private_articles/{page}/json")
-    Call<ShareArticlesBean> getShareArticleData(@Path("page")int page);
+    @GET("/user/{id}/share_articles/{page}/json")
+    Call<ShareArticlesBean> getShareArticleData(@Path("id")int id,@Path("page")int page);
 
     /**
      * 分享文章

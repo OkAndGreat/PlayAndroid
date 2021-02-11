@@ -53,7 +53,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         }
         String author = item.getAuthor();
         String shareUser = item.getShareUser();
-        holder.mTv_author_name.setText(author == null ? shareUser : author);
+        holder.mTv_author_name.setText(author.equals("") ? shareUser : author);
         holder.mTv_project.setVisibility(View.GONE);
         holder.mTv_accounts.setVisibility(View.GONE);
         String title = item.getTitle();
@@ -86,7 +86,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         }
         String author = item.getAuthor();
         String shareUser = item.getShareUser();
-        holder.mTv_author_name.setText(author == null ? shareUser : author);
+        holder.mTv_author_name.setText(author.equals("") ? shareUser : author);
         holder.mTv_project.setVisibility(View.GONE);
         holder.mTv_accounts.setVisibility(View.GONE);
         String title = item.getTitle();
@@ -112,16 +112,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mArticleData.size();
+        return mArticleData==null?mShareArticleData.size():mArticleData.size();
     }
 
     public void setData(List<ArticleBean.DataDTO.DatasDTO> questionArticleData) {
         mArticleData = questionArticleData;
+        notifyDataSetChanged();
     }
 
     public void setData(List<ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO> ArticleData, int type){
         mShareArticleData=ArticleData;
         mType=type;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

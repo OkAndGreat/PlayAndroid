@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.playandroid.R;
 import com.example.playandroid.base.BaseActivity;
+import com.example.playandroid.utils.LogUtil;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 import com.google.android.material.tabs.TabLayout;
@@ -27,6 +28,7 @@ import com.example.playandroid.adapter.*;
  * @author OkAndGreat
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = "MainActivity";
     String[] datas = {"首页", "问答", "分享", "休息"};
     int[] imageSrcNormal = {R.drawable.home_normal, R.drawable.question_normal, R.drawable.system_normal, R.drawable.rest_normal};
     int[] imageSrcSelected = {R.drawable.home_selected, R.drawable.question_selected, R.drawable.system_selected, R.drawable.rest_selected};
@@ -37,14 +39,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView mTvBar;
     private TextView mTvUserName;
     private View mIconImage;
-    private View mTvPoint;
-    private View mTvPointRank;
     private static boolean mLogin = false;
     private ImageView mIvSearch;
     private TextView mTvId;
-    private View mNavExit;
     private View mTvNavLogin;
     private View mLlNavLogined;
+    private View mNavGroup;
+    private View mTvNavExit;
+    private static int mId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ViewPager mainContentPager = (ViewPager) findViewById(R.id.Main_Content_Pager);
         //暂时解决了奔溃问题,但这样做可能让程序效率变慢
         //TODO:如何有效解决崩溃问题?
-        mainContentPager.setOffscreenPageLimit(4);
+        mainContentPager.setOffscreenPageLimit(3);
         MainContentPagerAdapter mainContentPagerAdapter = new MainContentPagerAdapter(getSupportFragmentManager(), MainContentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mainContentPager.setAdapter(mainContentPagerAdapter);
         mMainContentTabLayout.setupWithViewPager(mainContentPager);
@@ -85,12 +88,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mIvHome = (ImageView) findViewById(R.id.iv_home);
         mTvBar = (TextView) findViewById(R.id.tv_Bar);
-        mNavExit = findViewById(R.id.nav_exit);
         View headerLayout = mNavView.inflateHeaderView(R.layout.nav_header);
         mIconImage = headerLayout.findViewById(R.id.icon_image);
         mTvUserName = headerLayout.findViewById(R.id.tv_username);
         mTvNavLogin = headerLayout.findViewById(R.id.tv_nav_login);
         mLlNavLogined = headerLayout.findViewById(R.id.ll_nav_logined);
+        mTvNavExit = headerLayout.findViewById(R.id.tv_nav_exit);
         mTvId = (TextView) headerLayout.findViewById(R.id.tv_id);
         mIvSearch = (ImageView) findViewById(R.id.iv_home_search);
 
@@ -105,12 +108,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onTabSelected(TabLayout.Tab tab) {
                 ImageView icon = tab.getCustomView().findViewById(R.id.tab_item_image);
                 TextView tabText = tab.getCustomView().findViewById(R.id.tab_item_text);
-                //如果是分享tab且未登录则跳转到登陆界面
-                if("分享".equals(tabText)&&!isLogin()){
-                    Toast.makeText(MainActivity.this,"请先登录!",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivityForResult(intent,1);
-                }
                 tabText.setTextColor(getResources().getColor(R.color.tabtext_bg_color_selected));
                 icon.setImageResource(imageSrcSelected[tab.getPosition()]);
                 mTvBar.setText(tabText.getText());
@@ -151,8 +148,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         break;
                     case R.id.nav_point:
                         break;
-                    case R.id.nav_exit:
-                        break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + item.getItemId());
                 }
@@ -162,13 +157,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         //点击IvHome打开Drawer的监听
         mIvHome.setOnClickListener(this);
-
+        mTvNavLogin.setOnClickListener(this);
         //进入登录界面和积分界面的监听
         mIconImage.setOnClickListener(this);
         mTvUserName.setOnClickListener(this);
-        mTvPoint.setOnClickListener(this);
-        mTvPointRank.setOnClickListener(this);
+        mTvId.setOnClickListener(this);
         mIvSearch.setOnClickListener(this);
+        mTvNavExit.setOnClickListener(this);
     }
 
 
@@ -180,20 +175,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.icon_image:
-            case R.id.tv_username:
+            case R.id.tv_nav_login:
                 if (mLogin == false) {
                     intent = new Intent(this, LoginActivity.class);
-                    startActivityForResult(intent,1);
+                    startActivityForResult(intent, 1);
                 }
                 break;
             case R.id.iv_home_search:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_exit:
-                mNavExit.setVisibility(View.GONE);
+            case R.id.tv_nav_exit:
+                mTvNavExit.setVisibility(View.INVISIBLE);
                 mTvNavLogin.setVisibility(View.VISIBLE);
-                mLlNavLogined.setVisibility(View.GONE);
+                mLlNavLogined.setVisibility(View.INVISIBLE);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -205,9 +200,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * 判断是否登录以显示不同界面
+     *
      * @return
      */
-    public  boolean isLogin() {
+    public static boolean isLogin() {
         return mLogin;
     }
 
@@ -220,19 +216,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-                if(resultCode==RESULT_OK){
-                    String id = data.getStringExtra("id");
+                if (resultCode == RESULT_OK) {
+                    mId = data.getIntExtra("id",10000);
                     String username = data.getStringExtra("username");
-                    mNavExit.setVisibility(View.VISIBLE);
-                    mTvNavLogin.setVisibility(View.GONE);
+                    mTvNavExit.setVisibility(View.VISIBLE);
+                    mTvNavLogin.setVisibility(View.INVISIBLE);
                     mLlNavLogined.setVisibility(View.VISIBLE);
-                    mTvUserName.setText(username);
-                    mTvId.setText(id);
+                    mTvUserName.setText("用户名:"+"  "+username);
+                    mTvId.setText("Id:"+"  "+ mId);
                 }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + requestCode);
         }
+    }
+
+    public static int getId() {
+        return mId;
     }
 }
 

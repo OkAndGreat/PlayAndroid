@@ -4,6 +4,7 @@ import com.example.playandroid.model.API;
 import com.example.playandroid.model.bean.ArticleBean;
 import com.example.playandroid.model.bean.ShareArticlesBean;
 import com.example.playandroid.presenter.IArticlePresenter;
+import com.example.playandroid.utils.LogUtil;
 import com.example.playandroid.utils.RetrofitManger;
 import com.example.playandroid.view.IArticleCallback;
 
@@ -20,6 +21,9 @@ import retrofit2.Retrofit;
  */
 public class ArticlePresenterImpl implements IArticlePresenter {
     private IArticleCallback mIArticleCallback;
+    private static final String TAG = "ArticlePresenterImpl";
+    int mPage = 0;
+    int mIdPage = 0;
 
     @Override
     public void registerViewCallback(IArticleCallback iArticleCallback) {
@@ -37,7 +41,9 @@ public class ArticlePresenterImpl implements IArticlePresenter {
         RetrofitManger instance = RetrofitManger.getInstance();
         Retrofit mainRetrofit = instance.createMainRetrofit();
         API api = mainRetrofit.create(API.class);
-        Call<ArticleBean> questionArticle = api.getQuestionArticle(0);
+        Call<ArticleBean> questionArticle = api.getQuestionArticle(mPage);
+        mPage++;
+        LogUtil.d(TAG,String.valueOf("mPage-->"+mPage));
         questionArticle.enqueue(new Callback<ArticleBean>() {
             @Override
             public void onResponse(Call<ArticleBean> call, Response<ArticleBean> response) {
@@ -64,12 +70,18 @@ public class ArticlePresenterImpl implements IArticlePresenter {
     }
 
     @Override
-    public void getShareArticleData() {
+    public void getShareArticleData(int id) {
         mIArticleCallback.onLoading();
+        if (id == -1) {
+            mPage++;
+        } else {
+            mIdPage++;
+        }
         RetrofitManger instance = RetrofitManger.getInstance();
         Retrofit mainRetrofit = instance.createMainRetrofit();
         API api = mainRetrofit.create(API.class);
-        Call<ShareArticlesBean> shareArticleData = api.getShareArticleData(1);
+        Call<ShareArticlesBean> shareArticleData = api.getShareArticleData(id == -1 ? 2 : id, mPage);
+        LogUtil.d(TAG, "ID-->" + id + "");
         shareArticleData.enqueue(new Callback<ShareArticlesBean>() {
             @Override
             public void onResponse(Call<ShareArticlesBean> call, Response<ShareArticlesBean> response) {

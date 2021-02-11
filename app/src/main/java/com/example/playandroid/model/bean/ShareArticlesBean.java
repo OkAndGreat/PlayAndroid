@@ -538,6 +538,45 @@ public class ShareArticlesBean {
                 public void setZan(Integer zan) {
                     this.zan = zan;
                 }
+
+                @Override
+                public String toString() {
+                    return "DatasDTO{" +
+                            "apkLink='" + apkLink + '\'' +
+                            ", audit=" + audit +
+                            ", author='" + author + '\'' +
+                            ", canEdit=" + canEdit +
+                            ", chapterId=" + chapterId +
+                            ", chapterName='" + chapterName + '\'' +
+                            ", collect=" + collect +
+                            ", courseId=" + courseId +
+                            ", desc='" + desc + '\'' +
+                            ", descMd='" + descMd + '\'' +
+                            ", envelopePic='" + envelopePic + '\'' +
+                            ", fresh=" + fresh +
+                            ", host='" + host + '\'' +
+                            ", id=" + id +
+                            ", link='" + link + '\'' +
+                            ", niceDate='" + niceDate + '\'' +
+                            ", niceShareDate='" + niceShareDate + '\'' +
+                            ", origin='" + origin + '\'' +
+                            ", prefix='" + prefix + '\'' +
+                            ", projectLink='" + projectLink + '\'' +
+                            ", publishTime=" + publishTime +
+                            ", realSuperChapterId=" + realSuperChapterId +
+                            ", selfVisible=" + selfVisible +
+                            ", shareDate=" + shareDate +
+                            ", shareUser='" + shareUser + '\'' +
+                            ", superChapterId=" + superChapterId +
+                            ", superChapterName='" + superChapterName + '\'' +
+                            ", tags=" + tags +
+                            ", title='" + title + '\'' +
+                            ", type=" + type +
+                            ", userId=" + userId +
+                            ", visible=" + visible +
+                            ", zan=" + zan +
+                            '}';
+                }
             }
         }
     }

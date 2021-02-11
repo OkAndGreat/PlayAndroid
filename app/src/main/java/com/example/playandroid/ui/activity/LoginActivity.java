@@ -92,7 +92,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         intent.putExtra("id",response.body().getData().getId());
                         intent.putExtra("username",response.body().getData().getUsername());
                         setResult(RESULT_OK, intent);
-                        fileList();
+                        Toast.makeText(LoginActivity.this,"登陆成功!",Toast.LENGTH_LONG).show();
+                        finish();
                     } else {
                         String errorMsg = response.body().getErrorMsg();
                         Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();

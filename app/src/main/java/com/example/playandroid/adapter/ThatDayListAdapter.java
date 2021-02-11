@@ -48,7 +48,7 @@ public class ThatDayListAdapter extends RecyclerView.Adapter<ThatDayListAdapter.
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return 12;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

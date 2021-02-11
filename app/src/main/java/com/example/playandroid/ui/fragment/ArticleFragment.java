@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.playandroid.R;
 import com.example.playandroid.adapter.ArticleAdapter;
@@ -26,11 +27,12 @@ import java.util.List;
 /**
  * @author OkAndGreat
  */
-public class ArticleFragment extends BaseFragment implements IArticleCallback, UiLoader.OnRetryClickListener {
+public class ArticleFragment extends BaseFragment implements IArticleCallback, UiLoader.OnRetryClickListener, SwipeRefreshLayout.OnRefreshListener {
     private UiLoader mUiLoader;
     private ArticlePresenterImpl mArticlePresenter;
     private View mRootView;
     private ArticleAdapter mArticleAdapter;
+    private SwipeRefreshLayout mRefreshArticle;
 
 
     private String SearchWord = null;
@@ -75,6 +77,8 @@ public class ArticleFragment extends BaseFragment implements IArticleCallback, U
         //设置适配器
         mArticleAdapter = new ArticleAdapter();
         rv_question.setAdapter(mArticleAdapter);
+        mRefreshArticle = (SwipeRefreshLayout) mRootView.findViewById(R.id.refresh_article);
+        mRefreshArticle.setOnRefreshListener(this);
         initItemClickEvent();
         return mRootView;
     }
@@ -90,6 +94,7 @@ public class ArticleFragment extends BaseFragment implements IArticleCallback, U
 
     @Override
     public void onArticleLoaded(List<ArticleBean.DataDTO.DatasDTO> ArticleData) {
+        mRefreshArticle.setRefreshing(false);
         mArticleAdapter.setData(ArticleData);
         mUiLoader.updateStatus(UiLoader.UIStatus.SUCCESS);
     }
@@ -125,7 +130,11 @@ public class ArticleFragment extends BaseFragment implements IArticleCallback, U
     public void onRetryClick() {
         //表示网络不佳的时候，用户点击了重试
         //重新获取数据即可
-        mArticlePresenter.getQuestionArticleData();
+        if (SearchWord == null) {
+            mArticlePresenter.getQuestionArticleData();
+        } else {
+            mArticlePresenter.getSearchArticleData(SearchWord);
+        }
     }
 
     public String getSearchWord() {
@@ -134,5 +143,14 @@ public class ArticleFragment extends BaseFragment implements IArticleCallback, U
 
     public void setSearchWord(String searchWord) {
         SearchWord = searchWord;
+    }
+
+    @Override
+    public void onRefresh() {
+        if (SearchWord == null) {
+            mArticlePresenter.getQuestionArticleData();
+        } else {
+            mArticlePresenter.getSearchArticleData(SearchWord);
+        }
     }
 }

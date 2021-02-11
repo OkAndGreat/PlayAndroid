@@ -15,7 +15,7 @@ public interface IArticlePresenter extends IBasePresenter<IArticleCallback> {
     /**
      * 获取分享页面文章数据
      */
-    void getShareArticleData();
+    void getShareArticleData(int id);
 
     /**
      * 获取搜索页面文章数据

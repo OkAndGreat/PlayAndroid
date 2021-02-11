@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <group>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/nav_group">
         <item
             android:id="@+id/nav_point"
             android:icon="@drawable/nav_point"
@@ -21,10 +21,5 @@
             android:id="@+id/nav_collection"
             android:icon="@drawable/nav_collection"
             android:title="我的收藏" />
-        <item
-            android:id="@+id/nav_exit"
-            android:icon="@drawable/nav_exit"
-            android:visible="false"
-            android:title="退出登录" />
     </group>
 </menu>

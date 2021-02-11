@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.playandroid.R;
 import com.example.playandroid.adapter.GirlPicAndJokesListAdapter;
@@ -30,6 +31,8 @@ public class GirlAndJokesActivity extends BaseActivity implements View.OnClickLi
     private List<GirlPicBean.DataDTO.ListDTO> mGirlPicList;
     private List<JokesBean.DataDTO.ListDTO> mJokesList;
     private GirlPicAndJokesListAdapter mGirlPicAndJokesListAdapter;
+    private SwipeRefreshLayout mRefreshGirl;
+    private int mCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +44,15 @@ public class GirlAndJokesActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void setData() {
-        mGirlPicAndJokesListAdapter.setData(mGirlPicList,mJokesList);
         mRvGirl.setAdapter(mGirlPicAndJokesListAdapter);
+        mGirlPicAndJokesListAdapter.setData(mGirlPicList,mJokesList);
+        mRefreshGirl.setRefreshing(false);
     }
 
     private void getData() {
+        mCnt++;
         API api = RetrofitManger.getInstance().createRestRetrofit().create(API.class);
-        Call<GirlPicBean> girlPicData = api.getGirlPicData(0, "huhpitf1ukunvqvq", "eVh4YXZjTlpDYUU3Vlp4RnEyUWs4UT09");
+        Call<GirlPicBean> girlPicData = api.getGirlPicData(mCnt, "huhpitf1ukunvqvq", "eVh4YXZjTlpDYUU3Vlp4RnEyUWs4UT09");
         girlPicData.enqueue(new Callback<GirlPicBean>() {
             @Override
             public void onResponse(Call<GirlPicBean> call, Response<GirlPicBean> response) {
@@ -61,7 +66,7 @@ public class GirlAndJokesActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
-        Call<JokesBean> jokesData = api.getJokesData(0, "huhpitf1ukunvqvq", "eVh4YXZjTlpDYUU3Vlp4RnEyUWs4UT09");
+        Call<JokesBean> jokesData = api.getJokesData(mCnt, "huhpitf1ukunvqvq", "eVh4YXZjTlpDYUU3Vlp4RnEyUWs4UT09");
         jokesData.enqueue(new Callback<JokesBean>() {
 
             @Override
@@ -85,10 +90,18 @@ public class GirlAndJokesActivity extends BaseActivity implements View.OnClickLi
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRvGirl.setLayoutManager(linearLayoutManager);
         mIvBack = (ImageView) findViewById(R.id.iv_girl_back);
+        mRefreshGirl = (SwipeRefreshLayout) findViewById(R.id.refresh_girl);
+        mCnt = 1;
     }
 
     private void initListener() {
         mIvBack.setOnClickListener(this);
+        mRefreshGirl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+            }
+        });
     }
 
     @Override

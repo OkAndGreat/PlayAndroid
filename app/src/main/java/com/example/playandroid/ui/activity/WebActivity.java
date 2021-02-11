@@ -43,6 +43,7 @@ public class WebActivity extends AppCompatActivity {
                             || url.startsWith("tel://")//电话
                             || url.startsWith("dianping://")//大众点评
                             || url.startsWith("bilibili://")//哔哩哔哩
+                            || url.startsWith("jianshu://")//简书
                         //其他自定义的scheme
                     ) {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

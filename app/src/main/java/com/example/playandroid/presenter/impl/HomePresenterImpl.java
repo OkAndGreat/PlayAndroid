@@ -27,6 +27,8 @@ public class HomePresenterImpl implements IHomePresenter {
     private ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
     private static final String TAG = "HomePresenterImpl";
     private ArrayList<TopHomeArticleBean.DataDTO> mTopArticle;
+    int mPage=0;
+    private API mApi;
 
     @Override
     public void registerViewCallback(IHomeCallback iHomeCallback) {
@@ -43,8 +45,8 @@ public class HomePresenterImpl implements IHomePresenter {
         mIHomeCallback.onLoading();
         RetrofitManger instance = RetrofitManger.getInstance();
         Retrofit mainRetrofit = instance.createMainRetrofit();
-        API api = mainRetrofit.create(API.class);
-        Call<TopHomeArticleBean> topHomeArticle = api.getTopHomeArticle();
+        mApi = mainRetrofit.create(API.class);
+        Call<TopHomeArticleBean> topHomeArticle = mApi.getTopHomeArticle();
         topHomeArticle.enqueue(new Callback<TopHomeArticleBean>() {
             @Override
             public void onResponse(Call<TopHomeArticleBean> call, Response<TopHomeArticleBean> response) {
@@ -54,7 +56,7 @@ public class HomePresenterImpl implements IHomePresenter {
                         mIHomeCallback.onEmpty();
                     } else {
                         mTopArticle = (ArrayList<TopHomeArticleBean.DataDTO>)response.body().getData();
-                        getHomeArticle(api);
+                        getHomeArticle();
                     }
                 } else {
                     //网络错误,让UILoader去显示网络错误的UI界面
@@ -71,8 +73,9 @@ public class HomePresenterImpl implements IHomePresenter {
 
     }
 
-    private void getHomeArticle(API api) {
-        Call<HomeArticleBean> homeArticle = api.getHomeArticle(0);
+    public void getHomeArticle() {
+        Call<HomeArticleBean> homeArticle = mApi.getHomeArticle(mPage);
+        mPage++;
         homeArticle.enqueue(new Callback<HomeArticleBean>() {
             @Override
             public void onResponse(Call<HomeArticleBean> call, Response<HomeArticleBean> response) {

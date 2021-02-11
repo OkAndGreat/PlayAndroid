@@ -11,7 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="66dp"
             android:background="#3780FD"
             android:fitsSystemWindows="true"
             android:orientation="horizontal">
@@ -37,8 +37,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="false"
+                    android:textSize="12sp"
                     android:layout_centerInParent="true"
-                    android:text="PS:请求图片数据的服务器十分不稳定"
+                    android:text="PS:请求图片数据的服务器十分不稳定\n   可以通过多刷新几次来显示数据"
                     android:textColor="@color/white"
 
                     />
@@ -48,10 +50,16 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_that_day"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_that_day"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        android:overScrollMode="never" />
+        android:layout_weight="10">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_that_day"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </LinearLayout>

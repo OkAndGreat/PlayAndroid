@@ -74,6 +74,7 @@
             android:id="@+id/et_login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:textSize="16sp"
             tools:layout_editor_absoluteX="3dp"
             tools:layout_editor_absoluteY="327dp" />
@@ -101,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:maxLines="1"
             tools:layout_editor_absoluteX="50dp"
             tools:layout_editor_absoluteY="455dp" />
     </com.google.android.material.textfield.TextInputLayout>

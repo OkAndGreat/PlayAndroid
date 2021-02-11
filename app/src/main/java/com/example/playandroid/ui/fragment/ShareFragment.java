@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.playandroid.R;
 import com.example.playandroid.adapter.ArticleAdapter;
@@ -18,9 +19,11 @@ import com.example.playandroid.base.BaseFragment;
 import com.example.playandroid.model.bean.ArticleBean;
 import com.example.playandroid.model.bean.ShareArticlesBean;
 import com.example.playandroid.presenter.impl.ArticlePresenterImpl;
+import com.example.playandroid.ui.activity.MainActivity;
 import com.example.playandroid.ui.activity.PostArticleActivity;
 import com.example.playandroid.ui.activity.WebActivity;
 import com.example.playandroid.ui.customview.UiLoader;
+import com.example.playandroid.utils.LogUtil;
 import com.example.playandroid.view.IArticleCallback;
 
 import java.util.List;
@@ -28,11 +31,15 @@ import java.util.List;
 /**
  * @author OkAndGreat
  */
-public class ShareFragment extends BaseFragment implements UiLoader.OnRetryClickListener, IArticleCallback, View.OnClickListener {
+public class ShareFragment extends BaseFragment implements UiLoader.OnRetryClickListener, IArticleCallback, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    private static final String TAG = "ShareFragment";
     private UiLoader mUiLoader;
     private ArticlePresenterImpl mArticlePresenter;
     private View mRootView;
     private ArticleAdapter mArticleAdapter;
+    private RecyclerView mRv_share;
+    private SwipeRefreshLayout mRefreshShare;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,7 +54,11 @@ public class ShareFragment extends BaseFragment implements UiLoader.OnRetryClick
         //设置通知接口的注册
         mArticlePresenter.registerViewCallback(this);
         //获取分享文章列表
-        mArticlePresenter.getShareArticleData();
+        if(MainActivity.isLogin()){
+            mArticlePresenter.getShareArticleData(MainActivity.getId());
+        }else{
+            mArticlePresenter.getShareArticleData(-1);
+        }
 
 
         if (mUiLoader.getParent() instanceof ViewGroup) {
@@ -62,15 +73,16 @@ public class ShareFragment extends BaseFragment implements UiLoader.OnRetryClick
     private View createSuccessView(LayoutInflater inflater, ViewGroup container) {
         mRootView = inflater.inflate(R.layout.fragment_share, container, false);
         //RecyclerView使用
-        RecyclerView rv_share = mRootView.findViewById(R.id.rv_share);
+        mRv_share = mRootView.findViewById(R.id.rv_share);
         RelativeLayout llShare = (RelativeLayout) mRootView.findViewById(R.id.ll_share);
         llShare.setOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rv_share.setLayoutManager(linearLayoutManager);
+        mRv_share.setLayoutManager(linearLayoutManager);
         //设置适配器
         mArticleAdapter = new ArticleAdapter();
-        rv_share.setAdapter(mArticleAdapter);
+        mRefreshShare = (SwipeRefreshLayout) mRootView.findViewById(R.id.refresh_share);
+        mRefreshShare.setOnRefreshListener(this);
         initItemClickEvent();
         return mRootView;
     }
@@ -87,7 +99,11 @@ public class ShareFragment extends BaseFragment implements UiLoader.OnRetryClick
     public void onRetryClick() {
         //表示网络不佳的时候，用户点击了重试
         //重新获取数据即可
-        mArticlePresenter.getShareArticleData();
+        if(MainActivity.isLogin()){
+            mArticlePresenter.getShareArticleData(MainActivity.getId());
+        }else{
+            mArticlePresenter.getShareArticleData(-1);
+        }
     }
 
     @Override
@@ -103,7 +119,10 @@ public class ShareFragment extends BaseFragment implements UiLoader.OnRetryClick
 
     @Override
     public void onArticleLoaded(List<ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO> ArticleData, int type) {
-        mArticleAdapter.setData(ArticleData,1);
+        mRefreshShare.setRefreshing(false);
+        LogUtil.d(TAG,ArticleData.toString());
+        mRv_share.setAdapter(mArticleAdapter);
+        mArticleAdapter.setData(ArticleData, 1);
         mUiLoader.updateStatus(UiLoader.UIStatus.SUCCESS);
     }
 
@@ -126,5 +145,14 @@ public class ShareFragment extends BaseFragment implements UiLoader.OnRetryClick
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), PostArticleActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        if(MainActivity.isLogin()){
+            mArticlePresenter.getShareArticleData(MainActivity.getId());
+        }else{
+            mArticlePresenter.getShareArticleData(-1);
+        }
     }
 }

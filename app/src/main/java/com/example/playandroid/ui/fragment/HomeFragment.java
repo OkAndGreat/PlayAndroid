@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.playandroid.R;
 import com.example.playandroid.adapter.HomeArticleAdapter;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 /**
  * @author OkAndGreat
  */
-public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoader.OnRetryClickListener {
+public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoader.OnRetryClickListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "HomeFragment";
     private UiLoader mUiLoader;
     private HomePresenterImpl mHomePresenter;
@@ -34,6 +35,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoade
     ArrayList<HomeArticleBean.DataDTO.DatasDTO> mNormalArticle;
     ArrayList<TopHomeArticleBean.DataDTO> mTopArticle;
     private HomeArticleAdapter mHomeArticleAdapter;
+    private SwipeRefreshLayout mRefreshHome;
 
     @Nullable
     @Override
@@ -71,6 +73,8 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoade
         //设置适配器
         mHomeArticleAdapter = new HomeArticleAdapter();
         rvHome.setAdapter(mHomeArticleAdapter);
+        mRefreshHome = (SwipeRefreshLayout) mRootView.findViewById(R.id.refresh_home);
+        mRefreshHome.setOnRefreshListener(this);
         initItemClickEvent();
         return mRootView;
     }
@@ -86,6 +90,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoade
     @Override
     public void onHomeArticleLoaded(ArrayList<HomeArticleBean.DataDTO.DatasDTO> normalArticle, ArrayList<TopHomeArticleBean.DataDTO> topArticle) {
         mUiLoader.updateStatus(UiLoader.UIStatus.SUCCESS);
+        mRefreshHome.setRefreshing(false);
         mTopArticle = topArticle;
         mNormalArticle = normalArticle;
         mHomeArticleAdapter.setData(mTopArticle, mNormalArticle);
@@ -118,6 +123,11 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoade
     public void onRetryClick() {
         //表示网络不佳的时候，用户点击了重试
         //重新获取数据即可
+
+    }
+
+    @Override
+    public void onRefresh() {
         mHomePresenter.getHomeArticleData();
     }
 }

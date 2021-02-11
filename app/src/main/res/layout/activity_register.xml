@@ -72,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:maxLines="1"
             tools:layout_editor_absoluteX="3dp"
             tools:layout_editor_absoluteY="327dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -96,6 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:maxLines="1"
             tools:layout_editor_absoluteX="50dp"
             tools:layout_editor_absoluteY="455dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -120,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:maxLines="1"
             tools:layout_editor_absoluteX="50dp"
             tools:layout_editor_absoluteY="455dp" />
     </com.google.android.material.textfield.TextInputLayout>

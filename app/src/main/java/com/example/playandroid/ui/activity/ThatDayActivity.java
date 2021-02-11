@@ -1,6 +1,7 @@
 package com.example.playandroid.ui.activity;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.playandroid.R;
 import com.example.playandroid.adapter.ThatDayListAdapter;
@@ -26,12 +28,13 @@ import retrofit2.Response;
 /**
  * 因为Rest模块下的逻辑都比较简单,所以就不用MVP了!
  */
-public class ThatDayActivity extends BaseActivity implements View.OnClickListener {
+public class ThatDayActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "ThatDayActivity";
     private List<ThatDayBean.DataDTO> mThatDayData;
     private RecyclerView mThatDayList;
     private ThatDayListAdapter mThatDayListAdapter;
     private View mIvBack;
+    private SwipeRefreshLayout mRefreshThatDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class ThatDayActivity extends BaseActivity implements View.OnClickListene
 
     private void initListener() {
         mIvBack.setOnClickListener(this);
+        mRefreshThatDay.setOnRefreshListener(this);
     }
 
     private void getData() {
@@ -56,6 +60,7 @@ public class ThatDayActivity extends BaseActivity implements View.OnClickListene
                 mThatDayData = response.body().getData();
                 mThatDayList.setAdapter(mThatDayListAdapter);
                 mThatDayListAdapter.setData(mThatDayData);
+                mRefreshThatDay.setRefreshing(false);
             }
 
             @Override
@@ -72,10 +77,17 @@ public class ThatDayActivity extends BaseActivity implements View.OnClickListene
         mThatDayListAdapter = new ThatDayListAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mThatDayList.setLayoutManager(gridLayoutManager);
+        mRefreshThatDay = (SwipeRefreshLayout) findViewById(R.id.refresh_that_day);
+        mRefreshThatDay.setColorSchemeColors(Color.rgb(56,128,253));
     }
 
     @Override
     public void onClick(View v) {
         finish();
+    }
+
+    @Override
+    public void onRefresh() {
+        getData();
     }
 }

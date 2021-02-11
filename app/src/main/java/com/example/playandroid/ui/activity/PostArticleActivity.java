@@ -22,7 +22,7 @@ public class PostArticleActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_article_actibity);
+        setContentView(R.layout.activity_post_article_activity);
         mPostArticlePresenter = new PostArticlePresenterImpl();
         mPostArticlePresenter.registerViewCallback(this);
         initView();

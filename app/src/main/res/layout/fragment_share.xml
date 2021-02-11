@@ -3,26 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/ll_share"
-        android:layout_margin="10dp"
-        android:background="@drawable/selector_share_bg"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="160dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/selector_share_bg">
+
         <TextView
-            android:text="＋"
-            android:textStyle="bold"
-            android:textSize="80sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:text="＋"
+            android:textSize="80sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:singleLine="false"
+            android:text="Tips:不登陆默认显示鸿洋大神的分享文章哦\n            登陆后显示自己分享的文章" />
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_share"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_share"
         android:layout_width="match_parent"
-        android:overScrollMode="never"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_share"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </LinearLayout>
