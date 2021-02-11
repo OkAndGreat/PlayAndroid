@@ -166,7 +166,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, UiLoade
     public void onRetryClick() {
         //表示网络不佳的时候，用户点击了重试
         //重新获取数据即可
-
+        mHomePresenter.getHomeArticleData();
     }
 
     @Override
