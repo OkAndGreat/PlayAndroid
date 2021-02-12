@@ -16,23 +16,23 @@
 
 # 功能展示
 
-###打开界面
+### 打开界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/open.gif)
-###home界面
+### home界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/home.gif)
-###历史记录界面
+### 历史记录界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/History.gif)
-###登录和注册界面
+### 登录和注册界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/login.gif)
-###搜索界面
+### 搜索界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/search.gif)
-###分享界面
+### 分享界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/share.gif)
-###看美图和笑话界面
+### 看美图和笑话界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/JokesAndGirls.gif)
-###开源项目与关于作者界面
+### 开源项目与关于作者界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/OpenProjectsAndAboutAuthor.gif)
-###问答界面
+### 问答界面
 ![gif](https://github.com/OkAndGreat/PlayAndroid/blob/master/gif/question.gif)
 
 
