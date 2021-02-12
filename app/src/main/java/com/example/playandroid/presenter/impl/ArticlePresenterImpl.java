@@ -86,12 +86,13 @@ public class ArticlePresenterImpl implements IArticlePresenter {
             @Override
             public void onResponse(Call<ShareArticlesBean> call, Response<ShareArticlesBean> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    if (response.body() == null) {
+                    if ("".equals(response.body().toString())) {
                         //数据为空
                         mIArticleCallback.onEmpty();
                     } else {
                         List<ShareArticlesBean.DataDTO.ShareArticlesDTO.DatasDTO> datas = response.body().getData().getShareArticles().getDatas();
                         mIArticleCallback.onArticleLoaded(datas, 1);
+                        LogUtil.d(TAG,"datas-->"+datas.toString());
                     }
                 } else {
                     //网络错误,让UILoader去显示网络错误的UI界面

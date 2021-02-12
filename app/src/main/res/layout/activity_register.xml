@@ -61,6 +61,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
         android:hint="请输入用户名"
+        app:backgroundTint="@null"
         app:hintTextAppearance="@style/hintAppearence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,8 +72,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:maxLines="1"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="3dp"
             tools:layout_editor_absoluteY="327dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -85,6 +86,7 @@
         android:layout_marginTop="170dp"
         android:layout_marginRight="50dp"
         android:hint="请输入密码"
+        app:backgroundTint="@null"
         app:hintTextAppearance="@style/hintAppearence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,8 +98,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:maxLines="1"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="50dp"
             tools:layout_editor_absoluteY="455dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -110,6 +112,7 @@
         android:layout_marginTop="320dp"
         android:layout_marginRight="50dp"
         android:hint="请重新输入密码"
+        app:backgroundTint="@null"
         app:hintTextAppearance="@style/hintAppearence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,8 +124,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:maxLines="1"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="50dp"
             tools:layout_editor_absoluteY="455dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -134,8 +137,8 @@
         android:background="@drawable/shape_login_btn_bg"
         android:text="点击注册"
         android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordRegInputLayout"
@@ -147,8 +150,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="已有账号?点击登录!"
-        android:textSize="20sp"
         android:textColor="@color/blue"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/userInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

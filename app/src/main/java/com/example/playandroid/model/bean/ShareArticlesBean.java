@@ -38,6 +38,15 @@ public class ShareArticlesBean {
         this.errorMsg = errorMsg;
     }
 
+    @Override
+    public String toString() {
+        return "ShareArticlesBean{" +
+                "data=" + data +
+                ", errorCode=" + errorCode +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
+    }
+
     public static class DataDTO {
         /**
          * coinInfo : {"coinCount":493,"level":5,"nickname":"","rank":"2227","userId":83159,"username":"l**kunt"}
@@ -61,6 +70,14 @@ public class ShareArticlesBean {
 
         public void setShareArticles(ShareArticlesDTO shareArticles) {
             this.shareArticles = shareArticles;
+        }
+
+        @Override
+        public String toString() {
+            return "DataDTO{" +
+                    "coinInfo=" + coinInfo +
+                    ", shareArticles=" + shareArticles +
+                    '}';
         }
 
         public static class CoinInfoDTO {

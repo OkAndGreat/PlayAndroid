@@ -196,6 +196,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_nav_exit:
                 mNavView.removeHeaderView(mHeaderLayout);
                 mHeaderLayout = mNavView.inflateHeaderView(R.layout.nav_header);
+                mLogin=false;
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
