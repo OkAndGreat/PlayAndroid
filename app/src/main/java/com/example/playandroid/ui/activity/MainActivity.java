@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mIvHome = (ImageView) findViewById(R.id.iv_home);
         mTvBar = (TextView) findViewById(R.id.tv_Bar);
-        mHeaderLayout = mNavView.inflateHeaderView(R.layout.nav_header);
+        mHeaderLayout = mNavView.getHeaderView(0);
         mIconImage = mHeaderLayout.findViewById(R.id.icon_image);
         mTvUserName = mHeaderLayout.findViewById(R.id.tv_username);
         mTvNavLogin = mHeaderLayout.findViewById(R.id.tv_nav_login);
@@ -194,8 +194,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.tv_nav_exit:
-                mNavView.removeHeaderView(mHeaderLayout);
-                mHeaderLayout = mNavView.inflateHeaderView(R.layout.nav_header);
+                mTvNavExit.setVisibility(View.INVISIBLE);
+                mTvNavLogin.setVisibility(View.VISIBLE);
+                mLlNavLogined.setVisibility(View.INVISIBLE);
                 mLogin=false;
                 break;
             default:
