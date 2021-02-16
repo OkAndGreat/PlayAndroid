@@ -6,7 +6,7 @@ public class LogUtil {
 
 
     //控制是否要输出log
-    public static boolean sIsRelease = false;
+    public static boolean sIsRelease = true;
 
     public static void d(String TAG, String content) {
         if (!sIsRelease) {

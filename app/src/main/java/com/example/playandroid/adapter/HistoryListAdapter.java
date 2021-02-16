@@ -130,4 +130,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
          */
         void onClick(String URL);
     }
+
+    public ArrayList<ArticleBean.DataDTO.DatasDTO> getArticleDataList() {
+        return mArticleDataList;
+    }
+
 }

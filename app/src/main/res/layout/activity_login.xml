@@ -64,11 +64,9 @@
         android:layout_marginRight="50dp"
         android:hint="请输入用户名"
         app:hintTextAppearance="@style/hintAppearence"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
-        app:startIconDrawable="@mipmap/login_user">
+        app:layout_constraintTop_toBottomOf="@+id/tv_login_goRegister"
+        app:startIconDrawable="@mipmap/login_user"
+        tools:layout_editor_absoluteX="50dp">
 
         <EditText
             android:id="@+id/et_login_username"
@@ -83,26 +81,23 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordLoginInputLayout"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="130dp"
         android:hint="请输入密码"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:hintTextAppearance="@style/hintAppearence"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/userLoginInputLayout"
         app:passwordToggleEnabled="true"
-        app:startIconDrawable="@mipmap/login_password">
+        app:startIconDrawable="@mipmap/login_password"
+        tools:layout_editor_absoluteX="50dp">
 
         <EditText
             android:id="@+id/et_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:maxLines="1"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="50dp"
             tools:layout_editor_absoluteY="455dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -112,23 +107,22 @@
         android:layout_width="301dp"
         android:layout_height="59dp"
         android:background="@drawable/shape_login_btn_bg"
-        android:textSize="16sp"
         android:text="点击登录"
+        android:textSize="16sp"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLoginInputLayout"
-        app:layout_constraintVertical_bias="0.177" />
+        app:layout_constraintTop_toTopOf="@+id/passwordLoginInputLayout" />
 
     <TextView
         android:id="@+id/tv_login_goRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="20sp"
         android:text="没有账号?点击注册!"
         android:textColor="@color/blue"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/userInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -10,14 +10,15 @@ import android.view.WindowManager;
 import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
-public class AboutAuthorLayout extends ViewGroup {
-    //TODO:有一个Bug,滑动到第二页面时还可以滑动到第三个页面
 
+public class AboutAuthorLayout extends ViewGroup {
     private int mHeight;
     Scroller mScroller;
     private int mLastY;
     private int mStart;
     private int mEnd;
+    private Boolean mInPageOne=true;
+    private Boolean mInPageTwo=false;
 
     public AboutAuthorLayout(Context context) {
         this(context, null);
@@ -68,39 +69,51 @@ public class AboutAuthorLayout extends ViewGroup {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int y = (int) event.getY();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mLastY = y;
-                mStart = getScrollY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (!mScroller.isFinished()) {
-                    mScroller.abortAnimation();
-                }
-                int dy = mLastY - y;
-                if (getScrollY() < 0) {
-                    dy = 0;
-                }
+        int action = event.getAction();
+        if (action == MotionEvent.ACTION_DOWN) {
+            mLastY = y;
+            mStart = getScrollY();
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            if (!mScroller.isFinished()) {
+                mScroller.abortAnimation();
+            }
+            int dy = mLastY - y;
+            //当向上滑时只允许滑到屏幕宽度的十分之一,达到后停止滑动
+            if (-getScrollY() <mHeight / 10||getScrollY()>0) {
                 scrollBy(0, dy);
-                mLastY = y;
-                break;
-            case MotionEvent.ACTION_UP:
-                mEnd = getScrollY();
-                int dScrollY = mEnd - mStart;
-                if (dScrollY > 0) {
-                    if (dScrollY < mHeight / 3) {
-                        mScroller.startScroll(0, getScrollY(), 0, -dScrollY);
-                    } else {
+            }
+            mLastY = y;
+        } else if (action == MotionEvent.ACTION_UP) {
+            mEnd = getScrollY();
+            int dScrollY = mEnd - mStart;
+            if (dScrollY > 0) {
+                if (dScrollY < mHeight / 3) {
+                    mScroller.startScroll(0, getScrollY(), 0, -dScrollY);
+                } else {
+                    //在第一页时向下滑才允许
+                    if (mInPageOne == true) {
+                        mInPageOne = false;
+                        mInPageTwo=true;
                         mScroller.startScroll(0, getScrollY(), 0, mHeight - dScrollY);
                     }
-                } else {
-                    if (-dScrollY < mHeight / 3) {
+                    else {
                         mScroller.startScroll(0, getScrollY(), 0, -dScrollY);
-                    } else {
-                        mScroller.startScroll(0, getScrollY(), 0, -mHeight - dScrollY);
                     }
                 }
-                break;
+            } else {
+                if (-dScrollY < mHeight / 3) {
+                    mScroller.startScroll(0, getScrollY(), 0, -dScrollY);
+                } else {
+                    //在第二页时向上滑才允许
+                    if(mInPageTwo==true){
+                        mInPageTwo=false;
+                        mInPageOne =true;
+                        mScroller.startScroll(0, getScrollY(), 0, -mHeight - dScrollY);
+                    }else {
+                        mScroller.startScroll(0, getScrollY(), 0, -dScrollY);
+                    }
+                }
+            }
         }
         postInvalidate();
         return true;

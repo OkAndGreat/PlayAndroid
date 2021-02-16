@@ -11,9 +11,6 @@ import androidx.annotation.Nullable;
 import com.example.playandroid.R;
 
 
-/**
- * @author OkAndGreat
- */
 @SuppressLint("AppCompatCustomView")
 public class LoadingView extends ImageView {
 

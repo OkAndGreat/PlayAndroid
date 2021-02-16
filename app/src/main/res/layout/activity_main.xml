@@ -15,7 +15,7 @@
         <LinearLayout
             android:id="@+id/ll_main_bar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:background="#3780FD"
             android:fitsSystemWindows="true"
             android:orientation="horizontal">
@@ -72,10 +72,10 @@
             android:id="@+id/Main_Content_Pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="45dp"
             android:layout_weight="1"
-            android:overScrollMode="never"></androidx.viewpager.widget.ViewPager>
+            android:overScrollMode="never"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/Main_Content_TabLayout"
@@ -83,7 +83,7 @@
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             app:tabBackground="@color/tab_bg_color"
-            app:tabIndicatorHeight="0dp"></com.google.android.material.tabs.TabLayout>
+            app:tabIndicatorHeight="0dp"/>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

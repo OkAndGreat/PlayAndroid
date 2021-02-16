@@ -35,9 +35,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.RegisterActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.OpenProjectActivity"

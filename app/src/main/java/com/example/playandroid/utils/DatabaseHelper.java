@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public static final String CREATE_BOOK = "create table item ("
+            + "id integer primary key autoincrement,"
             + "link text, "
             + "fresh text, "
             + "author text, "

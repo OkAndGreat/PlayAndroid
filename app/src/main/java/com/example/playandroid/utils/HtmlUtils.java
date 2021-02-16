@@ -22,6 +22,8 @@ public class HtmlUtils {
         str = str.replace("<a href=\"", "");
         str = str.replace("\">", "");
         str = str.replace("&lt;", "<");
+        str = str.replace("&ldquo;", "\"");
+        str = str.replace("&rdquo;", "\"");
         str = str.replace("&gt;", ">");
         str = str.replace("<em class='highlight'>", "");
         str = str.replace("</em>", "");

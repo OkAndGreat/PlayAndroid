@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:background="#3780FD"
         android:fitsSystemWindows="true"
         android:orientation="horizontal">
@@ -35,12 +35,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
                 android:text="开源项目"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

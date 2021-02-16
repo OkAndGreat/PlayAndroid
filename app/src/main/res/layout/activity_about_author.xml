@@ -89,19 +89,20 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_github"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:layout_weight="1"
-                    android:src="@mipmap/github"></ImageView>
+                    android:src="@mipmap/github" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="2"
                     android:text="Github"
-                    android:textColor="@color/white"></TextView>
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -109,10 +110,11 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="6"
                     android:text="https://github.com/OkAndGreat"
-                    android:textColor="@color/white"></TextView>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_about_csdn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ll_about_github"
@@ -121,11 +123,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_csdn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:src="@mipmap/csdn"></ImageView>
+                    android:src="@mipmap/csdn" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -133,23 +136,23 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
                     android:text="CSDN"
-                    android:textColor="@color/white"></TextView>
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="6"
                     android:text="https://blog.csdn.net/m0_50262214"
-                    android:textColor="@color/white"></TextView>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="30dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -202,8 +205,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"
                     android:layout_marginBottom="25dp"
+                    android:layout_weight="4"
                     android:src="@mipmap/about_wechat" />
             </LinearLayout>
 
