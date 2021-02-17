@@ -5,6 +5,8 @@ import com.example.playandroid.model.bean.GirlPicBean;
 import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.JokesBean;
 import com.example.playandroid.model.bean.LoginBean;
+import com.example.playandroid.model.bean.PointBean;
+import com.example.playandroid.model.bean.PointDetailBean;
 import com.example.playandroid.model.bean.PostArticleBean;
 import com.example.playandroid.model.bean.RegisterBean;
 import com.example.playandroid.model.bean.ShareArticlesBean;
@@ -119,4 +121,17 @@ public interface API {
     @POST("/article/query/{page}/json")
     Call<ArticleBean> getSearchArticleData(@Path("page")int page,@Query("k")String k);
 
+    /**
+     * 获取积分
+     * @return
+     */
+    @GET("/lg/coin/userinfo/json")
+    Call<PointBean> getPointData();
+
+    /**
+     * 获取积分详细数据
+     * @return
+     */
+    @GET("/lg/coin/list/1/json")
+    Call<PointDetailBean> getPointDetailData();
 }

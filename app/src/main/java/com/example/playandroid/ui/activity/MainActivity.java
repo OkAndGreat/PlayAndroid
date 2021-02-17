@@ -1,11 +1,5 @@
 package com.example.playandroid.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,36 +10,40 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.playandroid.R;
+import com.example.playandroid.adapter.MainContentPagerAdapter;
 import com.example.playandroid.base.BaseActivity;
 import com.example.playandroid.utils.DatabaseHelper;
-import com.example.playandroid.utils.LogUtil;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 import com.google.android.material.tabs.TabLayout;
-import com.example.playandroid.adapter.*;
 /**
-                   _ooOoo_
-                  o8888888o
-                  88" . "88
-                  (| -_- |)
-                  O\  =  /O
-               ____/`---'\____
-             .'  \\|     |//  `.
-            /  \\|||  :  |||//  \
-           /  _||||| -:- |||||-  \
-           |   | \\\  -  /// |   |
-           | \_|  ''\---/''  |   |
-           \  .-\__  `-`  ___/-. /
-         ___`. .'  /--.--\  `. . __
-      ."" '<  `.___\_<|>_/___.'  >'"".
-     | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-     \  \ `-.   \_ __\ /__ _/   .-` /  /
-======`-.____`-.___\_____/___.-`____.-'======
-                   `=---='
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-         佛祖保佑       永无BUG
-
+ * _ooOoo_
+ * o8888888o
+ * 88" . "88
+ * (| -_- |)
+ * O\  =  /O
+ * ____/`---'\____
+ * .'  \\|     |//  `.
+ * /  \\|||  :  |||//  \
+ * /  _||||| -:- |||||-  \
+ * |   | \\\  -  /// |   |
+ * | \_|  ''\---/''  |   |
+ * \  .-\__  `-`  ___/-. /
+ * ___`. .'  /--.--\  `. . __
+ * ."" '<  `.___\_<|>_/___.'  >'"".
+ * | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+ * \  \ `-.   \_ __\ /__ _/   .-` /  /
+ * ======`-.____`-.___\_____/___.-`____.-'======
+ * `=---='
+ * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ * 佛祖保佑       永无BUG
  */
 
 
@@ -177,8 +175,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         startActivity(this.intent);
                         break;
                     case R.id.nav_point:
-                        intent = new Intent(MainActivity.this, PointActivity.class);
-                        startActivity(this.intent);
+                        if (mLogin == true) {
+                            intent = new Intent(MainActivity.this, PointActivity.class);
+                            startActivity(this.intent);
+                        }else {
+                            Toast.makeText(MainActivity.this,"先登录哦~~~",Toast.LENGTH_SHORT).show();
+                        }
+
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + item.getItemId());
@@ -220,7 +223,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mTvNavExit.setVisibility(View.INVISIBLE);
                 mTvNavLogin.setVisibility(View.VISIBLE);
                 mLlNavLogined.setVisibility(View.INVISIBLE);
-                mLogin=false;
+                mLogin = false;
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

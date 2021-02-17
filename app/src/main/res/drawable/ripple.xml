@@ -2,6 +2,6 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/grey">
     <item>
-        <color android:color="@color/white" />    //控件默认的颜色
+        <color android:color="@color/white" />
     </item>
 </ripple>

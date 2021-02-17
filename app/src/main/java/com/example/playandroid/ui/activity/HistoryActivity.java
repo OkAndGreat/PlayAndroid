@@ -1,9 +1,6 @@
 package com.example.playandroid.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +12,6 @@ import android.widget.Toast;
 import com.example.playandroid.R;
 import com.example.playandroid.adapter.HistoryListAdapter;
 import com.example.playandroid.base.BaseActivity;
-import com.example.playandroid.ui.fragment.ArticleFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 public class HistoryActivity extends BaseActivity {
@@ -40,13 +36,13 @@ public class HistoryActivity extends BaseActivity {
 
     private void initView() {
         mBack = findViewById(R.id.iv_history_back);
-        RecyclerView RvHistory = (RecyclerView) findViewById(R.id.rv_history);
+        RecyclerView rvHistory =  findViewById(R.id.rv_history);
         mHistoryListAdapter = new HistoryListAdapter();
         mHistoryListAdapter.getData();
-        RvHistory.setAdapter(mHistoryListAdapter);
+        rvHistory.setAdapter(mHistoryListAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        RvHistory.setLayoutManager(linearLayoutManager);
+        rvHistory.setLayoutManager(linearLayoutManager);
         mTvClear = findViewById(R.id.tv_history_clear);
         mDb = MainActivity.getDb();
     }

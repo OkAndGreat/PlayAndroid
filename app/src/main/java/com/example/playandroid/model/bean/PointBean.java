@@ -15,6 +15,15 @@ public class PointBean {
     private Integer errorCode;
     private String errorMsg;
 
+    @Override
+    public String toString() {
+        return "PointBean{" +
+                "data=" + data +
+                ", errorCode=" + errorCode +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
+    }
+
     public DataDTO getData() {
         return data;
     }
@@ -102,6 +111,18 @@ public class PointBean {
 
         public void setUsername(String username) {
             this.username = username;
+        }
+
+        @Override
+        public String toString() {
+            return "DataDTO{" +
+                    "coinCount=" + coinCount +
+                    ", level=" + level +
+                    ", nickname='" + nickname + '\'' +
+                    ", rank='" + rank + '\'' +
+                    ", userId=" + userId +
+                    ", username='" + username + '\'' +
+                    '}';
         }
     }
 }
