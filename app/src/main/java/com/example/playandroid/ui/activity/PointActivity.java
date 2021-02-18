@@ -32,10 +32,10 @@ public class PointActivity extends BaseActivity implements IPointCallback {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            mTvPoint.setText(String.valueOf(CoinCount));
+            mTvPoint.setText(String.valueOf(CoinCount<=mCoinCount?CoinCount:mCoinCount));
             if (CoinCount <= mCoinCount) {
-                CoinCount+=5;
-                mHandler.postAtTime(runnable, SystemClock.uptimeMillis() + 1);
+                CoinCount+=6;
+                mHandler.postAtTime(runnable, SystemClock.uptimeMillis() + 5);
             }
         }
     };

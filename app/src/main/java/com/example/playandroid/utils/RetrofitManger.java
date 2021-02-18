@@ -1,6 +1,5 @@
 package com.example.playandroid.utils;
 
-import com.example.playandroid.model.API;
 
 import java.util.ArrayList;
 import java.util.HashMap;

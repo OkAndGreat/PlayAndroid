@@ -4,7 +4,6 @@ package com.example.playandroid.ui.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;

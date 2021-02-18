@@ -1,8 +1,5 @@
 package com.example.playandroid.utils;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class HtmlUtils {
     public static String escapeHtml(String str) {
         str = str.replace("<ul>", "");

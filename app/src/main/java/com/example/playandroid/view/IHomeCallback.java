@@ -4,7 +4,6 @@ import com.example.playandroid.model.bean.HomeArticleBean;
 import com.example.playandroid.model.bean.TopHomeArticleBean;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author OkAndGreat
