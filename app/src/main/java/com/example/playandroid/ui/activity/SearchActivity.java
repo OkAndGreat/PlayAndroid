@@ -1,16 +1,16 @@
 package com.example.playandroid.ui.activity;
 
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.playandroid.R;
 import com.example.playandroid.base.BaseActivity;
@@ -42,9 +42,23 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initView() {
-        mIvBack = (ImageView) findViewById(R.id.iv_back);
-        mFlSearch = (FrameLayout) findViewById(R.id.fl_search);
-        mSvSearch = (SearchView) findViewById(R.id.sv_search);
+        mIvBack = findViewById(R.id.iv_back);
+        mFlSearch = findViewById(R.id.fl_search);
+        mSvSearch = findViewById(R.id.sv_search);
+        SearchView searchView = findViewById(R.id.sv_search);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.setOnClickListener(v -> searchView.onActionViewExpanded());
+
     }
 
     @Override

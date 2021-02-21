@@ -33,6 +33,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ArticleBean.DataDTO.DatasDTO item = mArticleDataList.get(position);
+        LogUtil.d(TAG,"item.getLink()-->"+item.getLink());
         holder.mll_item_article.setOnClickListener(v -> mOnArticleUrlClickListener.onClick(item.getLink()));
         Boolean fresh = item.getFresh();
         if (!fresh){
