@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ininView();
+        initView();
         initListener();
         initDb();
     }
@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDb = databaseHelper.getWritableDatabase();
     }
 
-    private void ininView() {
+    private void initView() {
         //ViewPager+Fragment+TabLayoou组合
         mMainContentTabLayout = (TabLayout) findViewById(R.id.Main_Content_TabLayout);
         ViewPager mainContentPager = (ViewPager) findViewById(R.id.Main_Content_Pager);

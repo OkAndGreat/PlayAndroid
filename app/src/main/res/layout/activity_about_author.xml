@@ -40,7 +40,7 @@
 
             </LinearLayout>
 
-            <com.example.playandroid.ui.customview.RoundRectImageView
+            <com.example.kotlinwheel.RoundRectImageView
                 android:id="@+id/rriv_author"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

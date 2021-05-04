@@ -35,7 +35,7 @@ public class PointActivity extends BaseActivity implements IPointCallback {
             mTvPoint.setText(String.valueOf(CoinCount<=mCoinCount?CoinCount:mCoinCount));
             if (CoinCount <= mCoinCount) {
                 CoinCount+=6;
-                mHandler.postAtTime(runnable, SystemClock.uptimeMillis() + 5);
+                mHandler.postAtTime(runnable, SystemClock.uptimeMillis() + 3);
             }
         }
     };
@@ -76,7 +76,8 @@ public class PointActivity extends BaseActivity implements IPointCallback {
     @Override
     public void onPointsDataLoaded(PointBean pointBean) {
         mCoinCount = pointBean.getData().getCoinCount();
-        mHandler.postAtTime(runnable, SystemClock.uptimeMillis() + 1);
+        //mHandler.postAtTime(runnable, SystemClock.uptimeMillis() + 1);
+        mHandler.post(runnable);
     }
 
     @Override

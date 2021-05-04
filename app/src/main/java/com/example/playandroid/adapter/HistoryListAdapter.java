@@ -45,7 +45,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         holder.mTv_project.setVisibility(View.GONE);
         holder.mTv_publish.setVisibility(View.GONE);
         holder.mTv_accounts.setVisibility(View.GONE);
-        holder.mTv_new.setVisibility(View.GONE);
+        holder.mTv_top.setVisibility(View.GONE);
         String title = item.getTitle();
         //对字符串中可能存在的HTML特殊字符进行Replace
         String etitle = HtmlUtils.escapeHtml(title);
@@ -104,6 +104,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         private final TextView mTv_project;
         private final TextView mTv_accounts;
         private final LinearLayout mll_item_article;
+        private final TextView mTv_top;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTv_new = (TextView) itemView.findViewById(R.id.tv_new);
@@ -116,6 +117,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             mTv_publish = (TextView) itemView.findViewById(R.id.tv_publish);
             mTv_project = (TextView) itemView.findViewById(R.id.tv_project);
             mTv_accounts = (TextView) itemView.findViewById(R.id.tv_accounts);
+            mTv_top = itemView.findViewById(R.id.tv_top);
         }
     }
 
